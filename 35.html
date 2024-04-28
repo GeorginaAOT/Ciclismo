@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interfaz de aplicación para ciclistas</title>
+<!-- Estilos CSS (puedes agregar tus propios estilos aquí) -->
+<style>
+    /* Estilos para la disposición de la interfaz */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: auto;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .search-bar {
+        position: relative;
+    }
+
+    .search-bar input[type="text"] {
+        width: calc(100% - 50px); /* 100% del ancho menos el ancho del botón */
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .search-bar button {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        background-color: #16a085; /* Azul turquesa */
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .search-bar button:hover {
+        background-color: #1abc9c; /* Azul turquesa más claro */
+    }
+
+    .filters {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .filters label {
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .filters input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        color: #8e44ad; /* Morado */
+    }
+
+    footer {
+        display: flex;
+        justify-content: space-around;
+        background-color: #8e44ad; /* Morado */
+        padding: 10px 0;
+    }
+
+    footer button {
+        background-color: #8e44ad; /* Morado */
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    footer button:hover {
+        background-color: #9b59b6; /* Morado más claro */
+    }
+
+    #map {
+        height: 400px; /* Altura del mapa */
+        width: 100%;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Barra de búsqueda -->
+    <div class="search-bar">
+        <input type="text" placeholder="Buscar...">
+        <button>Guardar ubicación &#128205;</button> <!-- Emoji de marcador de posición para guardar ubicación -->
+    </div>
+
+    <!-- Filtros de búsqueda -->
+    <div class="filters">
+        <h2>Filtros de búsqueda</h2>
+        <label for="longitud">Longitud:</label>
+        <input type="text" id="longitud">
+        <label for="dificultad">Dificultad:</label>
+        <input type="text" id="dificultad">
+        <label for="ubicacion">Ubicación:</label>
+        <input type="text" id="ubicacion">
+        <label for="desnivel">Desnivel:</label>
+        <input type="text" id="desnivel">
+        <label for="superficie">Superficie:</label>
+        <input type="text" id="superficie">
+    </div>
+
+    <!-- Botón de búsqueda -->
+    <div class="search-bar">
+        <button>Buscar aquí</button> <!-- Botón azul turquesa -->
+    </div>
+
+    <!-- Mapa con GPS -->
+    <div id="map"></div>
+</div>
+
+<footer>
+    <button id="btnInicio">Inicio</button>
+    <button id="btnMapas">Mapas</button>
+    <button id="btnRegistrar">Registrar</button>
+    <button id="btnGrupos">Grupos</button>
+    <button id="btnTu">Tú</button>
+</footer>
+
+<script>
+    // Funcionalidad de los botones
+    document.getElementById('btnInicio').addEventListener('click', function() {
+      // Aquí puedes agregar la funcionalidad para ir a la página de inicio
+      console.log('Ir a la página de inicio');
+    });
+
+    // Agrega funcionalidad a otros botones si es necesario
+</script>
+
+<!-- Código para inicializar el mapa (puedes modificarlo según tu necesidad) -->
+<script>
+function initMap() {
+  // Ubicación inicial (por defecto)
+  var initialLocation = { lat: 40.7128, lng: -74.0060 }; // Ejemplo: Nueva York, EE. UU.
+  
+  // Crea el mapa
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: initialLocation,
+    zoom: 12 // Nivel de zoom inicial
+  });
+  
+  // Intenta obtener la ubicación del usuario (puede no funcionar en todos los dispositivos)
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var userLocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      map.setCenter(userLocation); // Centra el mapa en la ubicación del usuario
+    }, function() {
+      console.log('No se pudo obtener la ubicación del usuario');
+    });
+  } else {
+    console.log('El navegador no soporta la geolocalización');
+  }
+}
+</script>
+<!-- Incluye la API de Google Maps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" async defer></script>
+
+</body>
+</html>
+
+
