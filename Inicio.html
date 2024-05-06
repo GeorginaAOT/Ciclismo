@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BikeBlitz - Inicio</title>
+  <style>
+    /* Estilos CSS */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #8e44ad; /* Morado */
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header button {
+      background-color: transparent;
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    header button.emoji {
+      font-size: 24px;
+      margin-right: 10px;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    section {
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: #8e44ad; /* Morado */
+    }
+
+    .btn {
+      background-color: #16a085; /* Turquesa */
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #1abc9c; /* Turquesa más claro */
+    }
+
+    .actividad, .duracion, .distancia {
+      background-color: #8e44ad; /* Morado */
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .actividad:hover, .duracion:hover, .distancia:hover {
+      background-color: #9b59b6; /* Morado más claro */
+    }
+
+    .reto {
+      margin-top: 20px;
+    }
+
+    .miembro {
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #8e44ad; /* Morado */
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    footer button {
+      background-color: transparent;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 0 5px;
+    }
+
+    #ooo {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background-color: #16a085; /* Turquesa */
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 999;
+      transition: transform 0.3s ease;
+    }
+
+    #ooo:hover {
+      transform: scale(1.1);
+    }
+
+    /* Estilos para dispositivos móviles */
+    @media only screen and (max-width: 600px) {
+      header {
+        padding: 10px;
+      }
+
+      main {
+        padding: 10px;
+      }
+
+      .btn, .actividad, .duracion, .distancia {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+
+      footer {
+        padding: 5px 0;
+      }
+
+      footer button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button id="btnInicio">Inicio</button>
+    <button class="emoji">💬</button>
+    <button class="emoji">🔍</button>
+    <button class="emoji" id="btnNotificaciones">🔔</button>
+  </header>
+
+  <main>
+    <section id="resumenSemanal">
+      <h2>Tu resumen semanal</h2>
+      <ul>
+        <li>
+          <button class="actividad">Actividades</button>
+          <button class="duracion">Duración</button>
+          <button class="distancia">Distancia</button>
+        </li>
+        <!-- Más elementos de resumen semanal aquí -->
+      </ul>
+    </section>
+
+    <section id="ohOm">
+      <h2>Oh Om</h2>
+      <div class="actividad">Actividad o desafío con distancia y cuenta de 0 km</div>
+      <button class="btn btnVerMas">Ver más</button>
+    </section>
+
+    <section id="retosSugeridos">
+      <h2>Retos sugeridos</h2>
+      <p>Mantén la motivación, diviértete mientras entrenas y consigue recompensas</p>
+      <p>Más de 493000 atletas ya se han unido</p>
+      <div class="reto">
+        <h3>Desafío Le Col Classics</h3>
+        <button class="btn btnUnirse">Unirse al reto</button> <!-- Nuevo botón -->
+        <button class="btn btnRecompensa">Recompensa</button>
+      </div>
+      <button class="btn btnVerMas">Más de</button>
+    </section>
+
+    <section id="recomendaciones">
+      <h2>REBOUN</h2>
+      <h3>Recomendaciones para ti</h3>
+      <div class="miembro">
+        <h4>Carlos Verona</h4>
+        <p>Ayer Andorra la Vella, Andorra</p>
+        <p>Andorra La Vella, Andorra La Vella, + Andorra</p>
+      </div>
+      <!-- Más miembros recomendados aquí -->
+    </section>
+
+    <!-- Nuevas publicaciones de otros ciclistas -->
+    <section id="publicaciones">
+      <h2>Publicaciones de otros ciclistas</h2>
+      <div class="miembro">
+        <h4>Juan Pérez</h4>
+        <p>¡Hoy fue un gran día de ciclismo! Recorrí 50 km y me sentí genial. #Ciclismo #Aventura</p>
+      </div>
+      <div class="miembro">
+        <h4>Marta Gómez</h4>
+        <p>¡Explorando nuevas rutas en la montaña! ¿Alguien se apunta? #Ciclismo #Naturaleza</p>
+      </div>
+      <!-- Más publicaciones aquí -->
+    </section>
+  </main>
+
+  <footer>
+    <button id="btnMapas">Mapas</button>
+    <button id="btnRegistrar">Registrar</button>
+    <button id="btnGrupos">Grupos</button>
+    <button id="btnTu">Tú</button>
+  </footer>
+
+  <div id="ooo"></div> <!-- Elemento gráfico o de imagen "ooo" -->
+
+  <script>
+    // Funcionalidad de los botones
+    document.getElementById('btnNotificaciones').addEventListener('click', function() {
+      alert('Tienes 3 nuevas notificaciones');
+    });
+
+    document.getElementById('btnInicio').addEventListener('click', function() {
+      // Aquí puedes agregar la funcionalidad para ir a la página de inicio
+      console.log('Ir a la página de inicio');
+    });
+
+    // Agrega funcionalidad a otros botones si es necesario
+  </script>
+</body>
+</html>
+
+

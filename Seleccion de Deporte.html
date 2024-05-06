@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selección de Deporte de Ciclismo</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #8e44ad;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        label {
+            display: inline-block;
+            width: calc(100% - 30px);
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #8e44ad;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        label:hover {
+            background-color: #9b59b6;
+        }
+
+        button {
+            display: block;
+            width: calc(100% - 30px);
+            margin: 0 auto;
+            margin-top: 10px;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #16a085;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1abc9c;
+        }
+
+        #result {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Selecciona un deporte de ciclismo</h1>
+        <ul>
+            <li>
+                <input type="radio" id="vuelta" name="sport" value="Vuelta ciclística">
+                <label for="vuelta">Vuelta ciclística 🚴‍♂️</label>
+            </li>
+            <li>
+                <input type="radio" id="montana" name="sport" value="Bicicleta de montaña">
+                <label for="montana">Bicicleta de montaña 🚵‍♂️</label>
+            </li>
+            <li>
+                <input type="radio" id="grava" name="sport" value="Bicicleta para grava">
+                <label for="grava">Bicicleta para grava 🚴‍♀️</label>
+            </li>
+            <li>
+                <input type="radio" id="electricavuelta" name="sport" value="Vuelta en bicicleta eléctrica">
+                <label for="electricavuelta">Vuelta en bicicleta eléctrica 🚴‍♂️🔌</label>
+            </li>
+            <li>
+                <input type="radio" id="electricamontana" name="sport" value="Bicicleta de montaña eléctrica">
+                <label for="electricamontana">Bicicleta de montaña eléctrica 🚵‍♀️🔌</label>
+            </li>
+            <li>
+                <input type="radio" id="triciclo" name="sport" value="Triciclo manual">
+                <label for="triciclo">Triciclo manual 🛵</label>
+            </li>
+            <li>
+                <input type="radio" id="velomovil" name="sport" value="Velomóvil">
+                <label for="velomovil">Velomóvil 🚴‍♂️🚴‍♀️</label>
+            </li>
+        </ul>
+        <button type="button" onclick="selectSport()">Confirmar selección</button>
+        <p id="result"></p>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function selectSport() {
+            const sports = document.getElementsByName('sport');
+            let selectedSport = '';
+            for (let i = 0; i < sports.length; i++) {
+                if (sports[i].checked) {
+                    selectedSport = sports[i].value;
+                    break;
+                }
+            }
+            document.getElementById('result').textContent = `Has seleccionado: ${selectedSport}`;
+        }
+    </script>
+</body>
+</html>
+

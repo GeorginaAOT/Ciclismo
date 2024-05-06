@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BikeBlitz</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        .header {
+            background-color: #8e44ad; /* Morado */
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px; /* Ajuste de margen */
+            position: relative;
+        }
+
+        .header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .nav-items {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-items button {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-items button:hover {
+            color: #ccc;
+        }
+
+        .header-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 0; /* Modificado para eliminar el espacio */
+            background-color: #8e44ad; /* Morado */
+            padding: 10px 0; /* Ajuste de relleno */
+            position: relative;
+        }
+
+        .header-buttons::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #8e44ad; /* Morado */
+        }
+
+        .header-buttons button {
+            background-color: #8e44ad; /* Morado */
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .header-buttons button:hover {
+            background-color: #9b59b6; /* Morado más claro */
+        }
+
+        .hero {
+            background-color: #16a085; /* Turquesa */
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .cta {
+            margin-bottom: 30px;
+        }
+
+        .cta button {
+            background-color: #8e44ad; /* Morado */
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .cta button:hover {
+            background-color: #9b59b6; /* Morado más claro */
+        }
+
+        .challenges {
+            padding: 20px;
+            background-color: #fff;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .challenges h2 {
+            color: #8e44ad; /* Morado */
+            margin-bottom: 20px;
+        }
+
+        .challenge {
+            margin-bottom: 30px;
+        }
+
+        .challenge h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .challenge p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: #8e44ad; /* Morado */
+            color: #fff;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        footer button {
+            background-color: #8e44ad; /* Morado */
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        footer button:hover {
+            background-color: #9b59b6; /* Morado más claro */
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h3>Grupos</h3>
+        <div class="nav-items">
+            <button onclick="alert('Mensajes')">✉️</button> <!-- Emoji para mandar mensaje -->
+            <button onclick="alert('Buscar')">🔍</button> <!-- Emoji para buscar -->
+            <button onclick="alert('Configuración')">⚙️</button> <!-- Emoji para configuración -->
+        </div>
+    </header>
+    <div class="header-buttons">
+        <button class="btn btn-turquoise">ACTIVO</button>
+        <button class="btn btn-turquoise">RETOS</button>
+        <button class="btn btn-turquoise">CLUBES</button>
+    </div>
+    <section class="hero">
+        <h1 class="mb-4">Prueba retos de grupo</h1>
+        <p class="mb-5">Juega solo con tus amigos. ¡Con tus reglas y a tu manera!</p>
+        <div class="cta mb-4">
+            <button class="btn btn-purple me-3" onclick="alert('Prueba 3 retos de grupo gratis ahora')">Prueba 3 retos de grupo gratis ahora</button>
+            <button class="btn btn-purple" onclick="alert('Retos')">Retos</button>
+        </div>
+        <button class="btn btn-purple mb-3" onclick="alert('Crea un reto de grupo')">Crea un reto de grupo</button>
+        <button class="btn btn-purple" onclick="alert('Empieza tu prueba gratuita')">Empieza tu prueba gratuita</button>
+    </section>
+    <section class="challenges p-4 bg-white">
+        <h2 class="text-purple mb-4">Retos sugeridos</h2>
+        <div class="challenge">
+            <h3>Reto de mayo: carrera (desnivel)</h3>
+            <p>Sube un total de 2000 m (6561.7 pies) entre el 1 may. 2024 y el 31 may. 2024</p>
+        </div>
+    </section>
+    <footer class="p-3 bg-purple text-white">
+        <button id="btnInicio" class="btn btn-turquoise me-2" onclick="alert('Inicio')">Inicio</button>
+        <button id="btnMapas" class="btn btn-turquoise me-2" onclick="alert('Mapas')">Mapas</button>
+        <button id="btnRegistrar" class="btn btn-turquoise me-2" onclick="alert('Registrar')">Registrar</button>
+        <button id="btnGrupos" class="btn btn-turquoise me-2" onclick="alert('Grupos')">Grupos</button>
+        <button id="btnTu" class="btn btn-turquoise" onclick="alert('Tú')">Tú</button>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
