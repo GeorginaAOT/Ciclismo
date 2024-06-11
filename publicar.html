@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicar Contenido</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Estilos CSS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h2 {
+            color: #8e44ad;
+            margin-bottom: 10px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .publicar-form {
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .publicar-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            resize: vertical;
+            font-size: 16px;
+        }
+
+        .publicar-form input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #1abc9c;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #16a085;
+        }
+
+        .btn {
+            background-color: #8e44ad;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #732d91;
+        }
+
+        .file-preview {
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        .file-preview img,
+        .file-preview video {
+            max-width: 100%;
+            max-height: 200px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="publicar-form">
+            <h2>Publicar Contenido</h2>
+            <form onsubmit="publicar(event)">
+                <textarea rows="5" placeholder="Escribe un texto..." required></textarea>
+                <label for="file-upload" class="custom-file-upload">
+                    <i class="fas fa-cloud-upload-alt"></i> Elegir archivos
+                </label>
+                <input id="file-upload" type="file" accept="image/*,video/*" multiple onchange="previewFiles()">
+                <div class="file-preview" id="file-preview"></div>
+                <button class="btn" type="submit">Publicar</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        function previewFiles() {
+            const preview = document.getElementById('file-preview');
+            const files = document.getElementById('file-upload').files;
+            preview.innerHTML = '';
+
+            if (files.length === 0) {
+                preview.innerHTML = '<p>No se han seleccionado archivos</p>';
+            } else {
+                for (const file of files) {
+                    const fileReader = new FileReader();
+                    fileReader.onload = function (e) {
+                        const result = e.target.result;
+                        if (file.type.startsWith('image/')) {
+                            const img = document.createElement('img');
+                            img.src = result;
+                            preview.appendChild(img);
+                        } else if (file.type.startsWith('video/')) {
+                            const video = document.createElement('video');
+                            video.src = result;
+                            video.controls = true;
+                            preview.appendChild(video);
+                        }
+                    }
+                    fileReader.readAsDataURL(file);
+                }
+            }
+        }
+
+        function publicar(event) {
+            event.preventDefault();
+            alert('Contenido publicado');
+        }
+    </script>
+</body>
+
+</html>
+
+

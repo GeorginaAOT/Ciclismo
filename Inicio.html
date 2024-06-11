@@ -1,240 +1,471 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BikeBlitz - Inicio</title>
-  <style>
-    /* Estilos CSS */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f8f8f8;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #8e44ad; /* Morado */
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    header button {
-      background-color: transparent;
-      border: none;
-      color: #fff;
-      font-size: 18px;
-      cursor: pointer;
-    }
-
-    header button.emoji {
-      font-size: 24px;
-      margin-right: 10px;
-    }
-
-    main {
-      padding: 20px;
-    }
-
-    section {
-      margin-bottom: 30px;
-    }
-
-    h2 {
-      color: #8e44ad; /* Morado */
-    }
-
-    .btn {
-      background-color: #16a085; /* Turquesa */
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .btn:hover {
-      background-color: #1abc9c; /* Turquesa más claro */
-    }
-
-    .actividad, .duracion, .distancia {
-      background-color: #8e44ad; /* Morado */
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .actividad:hover, .duracion:hover, .distancia:hover {
-      background-color: #9b59b6; /* Morado más claro */
-    }
-
-    .reto {
-      margin-top: 20px;
-    }
-
-    .miembro {
-      border: 1px solid #ccc;
-      padding: 10px;
-      border-radius: 5px;
-      margin-top: 10px;
-    }
-
-    footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: #8e44ad; /* Morado */
-      padding: 10px 0;
-      text-align: center;
-    }
-
-    footer button {
-      background-color: transparent;
-      border: none;
-      color: #fff;
-      font-size: 16px;
-      cursor: pointer;
-      margin: 0 5px;
-    }
-
-    #ooo {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      background-color: #16a085; /* Turquesa */
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 999;
-      transition: transform 0.3s ease;
-    }
-
-    #ooo:hover {
-      transform: scale(1.1);
-    }
-
-    /* Estilos para dispositivos móviles */
-    @media only screen and (max-width: 600px) {
-      header {
-        padding: 10px;
-      }
-
-      main {
-        padding: 10px;
-      }
-
-      .btn, .actividad, .duracion, .distancia {
-        padding: 8px 16px;
-        font-size: 14px;
-      }
-
-      footer {
-        padding: 5px 0;
-      }
-
-      footer button {
-        font-size: 14px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BikeBlitz - Inicio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Estilos CSS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #8e44ad;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header .left-corner-buttons {
+            display: flex;
+        }
+        header button {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        header button.emoji {
+            font-size: 24px;
+        }
+        main {
+            padding: 20px;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #8e44ad;
+        }
+        .btn {
+            background-color: #16a085;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #1abc9c;
+        }
+        .btn-like, .btn-comment {
+            background-color: transparent;
+            border: none;
+            color: #8e44ad;
+            font-size: 16px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .btn-like:hover, .btn-comment:hover {
+            color: #9b59b6;
+        }
+        .btn-like.active, .btn-comment.active {
+            color: #e74c3c;
+        }
+        .reto {
+            margin-top: 20px;
+        }
+        .miembro {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            background-color: #fff;
+        }
+        .comment-form {
+            display: none;
+            margin-top: 10px;
+        }
+        .comment-form textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .search-form,
+        .message-form {
+            display: none;
+            margin-top: 10px;
+        }
+        .search-form input[type="text"],
+        .message-form textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #8e44ad;
+            padding: 10px 0;
+            text-align: center;
+        }
+        footer button {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        @media only screen and (max-width: 600px) {
+            header {
+                padding: 10px;
+            }
+            main {
+                padding: 10px;
+            }
+            .btn, .actividad, .duracion, .distancia {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            footer {
+                padding: 5px 0;
+            }
+            footer button {
+                font-size: 14px;
+            }
+            .resumen-info {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+            .resumen-info span {
+                flex: 1 1 auto;
+                margin-bottom: 5px;
+            }
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .comments {
+            margin-top: 10px;
+            padding-left: 20px;
+            border-left: 2px solid #ccc;
+        }
+        .comment {
+            margin-bottom: 10px;
+            padding: 5px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        .comment .comment-author {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .comment .comment-text {
+            display: inline;
+        }
+        .publicacion-imagen {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        /* Estilos para la sección de publicación */
+        #publicarForm {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        #publicarForm textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        #publicarForm input[type="file"] {
+            display: none;
+        }
+        #publicarForm label {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #8e44ad;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #publicarForm label:hover {
+            background-color: #732d91;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <button id="btnInicio">Inicio</button>
-    <button class="emoji">💬</button>
-    <button class="emoji">🔍</button>
-    <button class="emoji" id="btnNotificaciones">🔔</button>
-  </header>
+    <header>
+        <!-- Botón de inicio -->
+        <button id="btnInicio">Inicio</button>
+        <div class="left-corner-buttons">
+            <!-- Botón de notificaciones -->
+            <button class="emoji" id="btnNotificaciones" onclick="redirigir('Notificaciones.html')"><i class="fas fa-bell"></i></button>
+            <!-- Botón de mensajes -->
+            <button class="emoji" id="btnMensaje" onclick="redirigir('Mensajes.html')"><i class="far fa-envelope"></i></button>
+        </div>
+    </header>
 
-  <main>
-    <section id="resumenSemanal">
-      <h2>Tu resumen semanal</h2>
-      <ul>
-        <li>
-          <button class="actividad">Actividades</button>
-          <button class="duracion">Duración</button>
-          <button class="distancia">Distancia</button>
-        </li>
-        <!-- Más elementos de resumen semanal aquí -->
-      </ul>
-    </section>
+    <main>
+        <!-- Sección de resumen semanal -->
+        <section id="resumenSemanal">
+            <h2>Tu resumen semanal</h2>
+            <div class="resumen-info">
+                <span>Actividades: 4</span>
+                <span>Duración: 49 min</span>
+                <span>Distancia: 67 km</span>
+            </div>
+        </section>
 
-    <section id="ohOm">
-      <h2>Oh Om</h2>
-      <div class="actividad">Actividad o desafío con distancia y cuenta de 0 km</div>
-      <button class="btn btnVerMas">Ver más</button>
-    </section>
+        <!-- Sección de retos sugeridos -->
+        <section id="retosSugeridos">
+            <h2>Retos sugeridos</h2>
+            <div class="reto">
+                <p>Mantén la motivación, diviértete mientras entrenas y consigue recompensas.</p>
+                <p>Más de 493000 atletas ya se han unido.</p>
+                <h3>Desafío Le Col Classics</h3>
+                <!-- Botón para unirse al reto -->
+                <button class="btn btnUnirse" onclick="redirigir('Retos.html')">Unirse al reto</button>
+            </div>
+        </section>
 
-    <section id="retosSugeridos">
-      <h2>Retos sugeridos</h2>
-      <p>Mantén la motivación, diviértete mientras entrenas y consigue recompensas</p>
-      <p>Más de 493000 atletas ya se han unido</p>
-      <div class="reto">
-        <h3>Desafío Le Col Classics</h3>
-        <button class="btn btnUnirse">Unirse al reto</button> <!-- Nuevo botón -->
-        <button class="btn btnRecompensa">Recompensa</button>
-      </div>
-      <button class="btn btnVerMas">Más de</button>
-    </section>
+        <!-- Sección de recomendaciones -->
+        <section id="recomendaciones">
+            <h2>REBOUN</h2>
+            <h3>Recomendaciones para ti</h3>
+            <div class="miembro">
+                <h4>Carlos Verona</h4>
+                <p>Ayer Andorra la Vella, Andorra</p>
+                <p>Andorra La Vella, Andorra La Vella, + Andorra</p>
+            </div>
+        </section>
 
-    <section id="recomendaciones">
-      <h2>REBOUN</h2>
-      <h3>Recomendaciones para ti</h3>
-      <div class="miembro">
-        <h4>Carlos Verona</h4>
-        <p>Ayer Andorra la Vella, Andorra</p>
-        <p>Andorra La Vella, Andorra La Vella, + Andorra</p>
-      </div>
-      <!-- Más miembros recomendados aquí -->
-    </section>
+        <!-- Sección para publicar -->
+        <section id="publicar">
+            <h2>Publicar</h2>
+            <form id="publicarForm">
+                <!-- Campo de texto para contenido -->
+                <textarea id="contenido" rows="3" placeholder="Escribe algo..."></textarea>
+                <!-- Etiqueta para subir imagen -->
+                <label for="imagen">Subir imagen</label>
+                <!-- Campo de archivo para imagen -->
+                <input type="file" id="imagen" accept="image/*">
+                <!-- Botón para publicar -->
+                <button class="btn" type="button" onclick="agregarPublicacion()">Publicar</button>
+            </form>
+        </section>
 
-    <!-- Nuevas publicaciones de otros ciclistas -->
-    <section id="publicaciones">
-      <h2>Publicaciones de otros ciclistas</h2>
-      <div class="miembro">
-        <h4>Juan Pérez</h4>
-        <p>¡Hoy fue un gran día de ciclismo! Recorrí 50 km y me sentí genial. #Ciclismo #Aventura</p>
-      </div>
-      <div class="miembro">
-        <h4>Marta Gómez</h4>
-        <p>¡Explorando nuevas rutas en la montaña! ¿Alguien se apunta? #Ciclismo #Naturaleza</p>
-      </div>
-      <!-- Más publicaciones aquí -->
-    </section>
-  </main>
+        <!-- Sección de publicaciones -->
+        <section id="publicaciones">
+            <h2>Publicaciones de otros ciclistas</h2>
+        </section>
 
-  <footer>
-    <button id="btnMapas">Mapas</button>
-    <button id="btnRegistrar">Registrar</button>
-    <button id="btnGrupos">Grupos</button>
-    <button id="btnTu">Tú</button>
-  </footer>
+        <!-- Formulario de búsqueda -->
+        <form class="search-form">
+            <input type="text" placeholder="Buscar...">
+            <button class="btn" type="submit">Buscar</button>
+        </form>
+        <!-- Formulario de mensajes -->
+        <form class="message-form">
+            <textarea rows="3" placeholder="Escribe tu mensaje..."></textarea>
+            <button class="btn" type="submit">Enviar</button>
+        </form>
+    </main>
 
-  <div id="ooo"></div> <!-- Elemento gráfico o de imagen "ooo" -->
+    <footer>
+        <!-- Botones de navegación en el pie de página -->
+        <button id="btInicio">Inicio</button>
+        <button id="btnMapas" onclick="redirigir('Mapas.html')">Mapas</button>
+        <button id="btRegistrar" onclick="redirigir('registro.html')">Registrar</button>
+        <button id="btnGrupos" onclick="redirigir('Retos.html')">Grupos</button>
+        <button id="btnTu" onclick="redirigir('Tu.html')">Tu</button>
+    </footer>
 
-  <script>
-    // Funcionalidad de los botones
-    document.getElementById('btnNotificaciones').addEventListener('click', function() {
-      alert('Tienes 3 nuevas notificaciones');
-    });
+    <script>
+        // Redirige a la página especificada
+        function redirigir(pagina) {
+            window.location.href = pagina;
+        }
 
-    document.getElementById('btnInicio').addEventListener('click', function() {
-      // Aquí puedes agregar la funcionalidad para ir a la página de inicio
-      console.log('Ir a la página de inicio');
-    });
+        // Alterna el estado del botón de 'like' y actualiza el contador de likes en LocalStorage
+        function toggleLike(button, publicacionId) {
+            let publicaciones = JSON.parse(localStorage.getItem('publicaciones')) || [];
+            let publicacion = publicaciones.find(pub => pub.id === publicacionId);
+            if (publicacion) {
+                if (button.classList.contains('active')) {
+                    publicacion.likes--;
+                } else {
+                    publicacion.likes++;
+                }
+                button.classList.toggle('active');
+                localStorage.setItem('publicaciones', JSON.stringify(publicaciones));
+                cargarPublicaciones();
+            }
+        }
 
-    // Agrega funcionalidad a otros botones si es necesario
-  </script>
+        // Muestra u oculta el formulario de comentarios
+        function toggleCommentForm(button) {
+            const commentForm = button.nextElementSibling;
+            commentForm.style.display = commentForm.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Publica un comentario en una publicación específica
+        function postComment(button, publicacionId) {
+            const commentForm = button.closest('.comment-form');
+            const textarea = commentForm.querySelector('textarea');
+            const comentario = textarea.value.trim();
+            if (comentario !== "") {
+                let publicaciones = JSON.parse(localStorage.getItem('publicaciones')) || [];
+                let publicacion = publicaciones.find(pub => pub.id === publicacionId);
+                if (publicacion) {
+                    if (!publicacion.comentarios) publicacion.comentarios = [];
+                    publicacion.comentarios.push({ nombre: 'Usuario', texto: comentario });
+                    localStorage.setItem('publicaciones', JSON.stringify(publicaciones));
+                    cargarPublicaciones();
+                    textarea.value = '';
+                    commentForm.style.display = 'none';
+                }
+            } else {
+                alert('El comentario no puede estar vacío');
+            }
+        }
+
+        // Carga y muestra las publicaciones desde LocalStorage
+        function cargarPublicaciones() {
+            const publicacionesContainer = document.getElementById('publicaciones');
+            publicacionesContainer.innerHTML = ''; // Limpiar publicaciones existentes
+
+            let publicaciones = JSON.parse(localStorage.getItem('publicaciones')) || [];
+
+            publicaciones.forEach(publicacion => {
+                const div = document.createElement('div');
+                div.className = 'miembro';
+                div.setAttribute('data-id', publicacion.id);
+
+                const h4 = document.createElement('h4');
+                h4.textContent = publicacion.nombre;
+                div.appendChild(h4);
+
+                if (publicacion.contenido) {
+                    const p = document.createElement('p');
+                    p.textContent = publicacion.contenido;
+                    div.appendChild(p);
+                }
+
+                if (publicacion.imagen) {
+                    const img = document.createElement('img');
+                    img.src = publicacion.imagen;
+                    img.alt = 'Imagen de la publicación';
+                    img.className = 'publicacion-imagen';
+                    div.appendChild(img);
+                }
+
+                const likeButton = document.createElement('button');
+                likeButton.className = 'btn-like';
+                likeButton.onclick = () => toggleLike(likeButton, publicacion.id);
+                likeButton.innerHTML = `<i class="fas fa-thumbs-up"></i> <span>${publicacion.likes || 0}</span>`;
+                div.appendChild(likeButton);
+
+                const commentButton = document.createElement('button');
+                commentButton.className = 'btn-comment';
+                commentButton.onclick = () => toggleCommentForm(commentButton);
+                commentButton.innerHTML = '<i class="fas fa-comment"></i> Comentar';
+                div.appendChild(commentButton);
+
+                const commentForm = document.createElement('div');
+                commentForm.className = 'comment-form';
+                commentForm.innerHTML = `
+                    <textarea rows="3" placeholder="Escribe un comentario..."></textarea>
+                    <button class="btn" onclick="postComment(this, ${publicacion.id})">Enviar</button>
+                `;
+                div.appendChild(commentForm);
+
+                const commentsContainer = document.createElement('div');
+                commentsContainer.className = 'comments';
+                if (publicacion.comentarios) {
+                    publicacion.comentarios.forEach(comentario => {
+                        const commentDiv = document.createElement('div');
+                        commentDiv.className = 'comment';
+                        commentDiv.innerHTML = `<span class="comment-author">${comentario.nombre}:</span> <span class="comment-text">${comentario.texto}</span>`;
+                        commentsContainer.appendChild(commentDiv);
+                    });
+                }
+                div.appendChild(commentsContainer);
+
+                publicacionesContainer.appendChild(div);
+            });
+        }
+
+        // Agrega una nueva publicación con texto e imagen opcional
+        function agregarPublicacion() {
+            const contenido = document.getElementById('contenido').value.trim();
+            const imagenInput = document.getElementById('imagen');
+            const imagen = imagenInput.files[0];
+
+            if (contenido === "" && !imagen) {
+                alert('La publicación no puede estar vacía');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                let publicaciones = JSON.parse(localStorage.getItem('publicaciones')) || [];
+                let nuevaPublicacion = {
+                    id: publicaciones.length ? publicaciones[publicaciones.length - 1].id + 1 : 1,
+                    nombre: 'Usuario',  // Aquí puedes usar el nombre real del usuario
+                    contenido: contenido,
+                    imagen: event.target.result,
+                    likes: 0,
+                    comentarios: []
+                };
+                publicaciones.push(nuevaPublicacion);
+                localStorage.setItem('publicaciones', JSON.stringify(publicaciones));
+                cargarPublicaciones();
+                document.getElementById('contenido').value = '';
+                imagenInput.value = '';
+            };
+            if (imagen) {
+                reader.readAsDataURL(imagen);
+            } else {
+                reader.onload(); // Llamar al onload manualmente si no hay imagen
+            }
+        }
+
+        // Cargar publicaciones cuando el documento esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarPublicaciones();
+        });
+    </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
 
 

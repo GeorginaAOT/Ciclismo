@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elige longitud para ciclismo - BikeBlitz</title>
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    /* Estilos de la cabecera */
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background-color: #8e44ad;
+      color: #fff;
+      font-size: 24px;
+      width: 100%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .header .close-btn {
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .header .close-btn::before {
+      content: '\2190'; /* Unicode para la flecha izquierda */
+    }
+
+    /* Estilos del contenido */
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 20px;
+    }
+
+    /* Estilos de las opciones */
+    .option-container {
+      width: 100%;
+      max-width: 400px;
+      margin-top: 20px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .option:hover {
+      background-color: #f0f0f0;
+    }
+
+    .option-icon {
+      font-size: 24px;
+      margin-right: 15px;
+    }
+
+    .option-text {
+      flex-grow: 1;
+    }
+
+    .option-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .option-description {
+      margin: 5px 0 0 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .radio-btn {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #8e44ad;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .radio-btn::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background-color: #8e44ad;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.2s ease;
+    }
+
+    .radio-btn.active::before {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* Estilos para pantallas pequeñas */
+    @media (max-width: 600px) {
+      .option {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .option-icon {
+        margin-bottom: 10px;
+      }
+
+      .option-text {
+        width: 100%;
+      }
+
+      .header {
+        font-size: 18px;
+        padding: 15px;
+      }
+
+      .header .close-btn {
+        font-size: 20px;
+        left: 15px;
+      }
+
+      .option-title {
+        font-size: 16px;
+      }
+
+      .option-description {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <button class="close-btn" onclick="cerrarVentana()"></button>
+    Elige longitud para ciclismo
+  </div>
+
+  <div class="content">
+    <div class="option-container">
+      <!-- Opción: Corta -->
+      <div class="option" onclick="selectOption('corta')">
+        <div class="option-icon">🚴‍♂️</div>
+        <div class="option-text">
+          <p class="option-title">Corta</p>
+          <p class="option-description">Distancias cortas, adecuadas para principiantes o paseos ligeros.</p>
+        </div>
+        <div class="radio-btn" id="radio-corta"></div>
+      </div>
+
+      <!-- Opción: Media -->
+      <div class="option" onclick="selectOption('media')">
+        <div class="option-icon">🚴</div>
+        <div class="option-text">
+          <p class="option-title">Media</p>
+          <p class="option-description">Distancias medias, perfectas para ciclistas intermedios y recreativos.</p>
+        </div>
+        <div class="radio-btn" id="radio-media"></div>
+      </div>
+
+      <!-- Opción: Larga -->
+      <div class="option" onclick="selectOption('larga')">
+        <div class="option-icon">🚵‍♂️</div>
+        <div class="option-text">
+          <p class="option-title">Larga</p>
+          <p class="option-description">Distancias largas, desafiantes para ciclistas experimentados y entusiastas.</p>
+        </div>
+        <div class="radio-btn" id="radio-larga"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    function selectOption(option) {
+      // Limpiar la clase 'active' de todos los radio buttons
+      document.querySelectorAll('.radio-btn').forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+
+      // Agregar la clase 'active' al radio button seleccionado
+      document.getElementById('radio-' + option).classList.add('active');
+    }
+
+    function cerrarVentana() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>

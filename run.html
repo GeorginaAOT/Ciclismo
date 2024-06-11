@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BikeBlitz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .header {
+            background-color: #8e44ad; /* Nuevo tono de morado */
+            color: white;
+            text-align: center;
+            padding: 15px;
+            position: relative;
+            font-size: 24px;
+        }
+        .header .hide {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background-color: #40E0D0; /* Turquesa */
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .header .hide:hover {
+            background-color: #35bdbb;
+        }
+        .status {
+            background-color: #8e44ad; /* Nuevo tono de morado */
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 24px;
+        }
+        .map {
+            height: 300px;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid #8e44ad;
+        }
+        .map a {
+            color: #8e44ad;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .map a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .stats div {
+            font-size: 24px;
+            color: #8e44ad; /* Nuevo tono de morado */
+        }
+        .stats div span {
+            display: block;
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+        }
+        .actions {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .actions button {
+            width: 140px;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .start {
+            background-color: #40E0D0; /* Turquesa */
+        }
+        .start:hover {
+            background-color: #35bdbb;
+        }
+        .resume {
+            background-color: #40E0D0; /* Turquesa */
+        }
+        .resume:hover {
+            background-color: #35bdbb;
+        }
+        .finish {
+            background-color: #8e44ad; /* Nuevo tono de morado */
+        }
+        .finish:hover {
+            background-color: #722D8D;
+        }
+        .activity-list {
+            padding: 20px;
+        }
+        .activity-item {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .activity-item h3 {
+            margin: 0;
+            color: #8e44ad; /* Morado */
+        }
+        .activity-item p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        BikeBlitz
+        <button class="hide" onclick="toggleHeader()">Ocultar</button>
+    </div>
+
+    <div class="status" id="status">DETENIDO</div>
+
+    <div class="map">
+        <a href="https://www.google.com/maps" target="_blank">Ver Mapa de la Ruta en Google Maps</a>
+    </div>
+
+    <div class="content">
+        <div class="stats">
+            <div>
+                <span id="time">00:00:00</span>
+                <div>TIEMPO</div>
+            </div>
+            <div>
+                <span id="distance">0.0</span>
+                <div>DISTANCIA (KM)</div>
+            </div>
+        </div>
+        <div class="stats">
+            <div>
+                <span id="pace">0.00</span>
+                <div>RITMO PROMEDIO (KM/H)</div>
+            </div>
+        </div>
+        <div class="actions">
+            <button class="start" onclick="iniciarActividad()">INICIAR</button>
+            <button class="resume" style="display:none;" onclick="reanudarActividad()">REANUDAR</button>
+            <button class="finish" onclick="finalizarActividad()">FINALIZAR</button>
+        </div>
+    </div>
+
+    <div class="activity-list" id="activity-list">
+        <!-- Las actividades guardadas aparecerán aquí -->
+    </div>
+
+    <script>
+        let isRunning = false;
+        let totalTime = 0;
+        let totalDistance = 0;
+        let interval;
+
+        function toggleHeader() {
+            const header = document.querySelector('.header');
+            const button = document.querySelector('.header .hide');
+            if (header.style.display === 'none') {
+                header.style.display = 'block';
+                button.textContent = 'Ocultar';
+            } else {
+                header.style.display = 'none';
+                button.textContent = 'Mostrar';
+            }
+        }
+
+        function iniciarActividad() {
+            document.getElementById('status').textContent = 'EN PROGRESO';
+            document.querySelector('.start').style.display = 'none';
+            document.querySelector('.resume').style.display = 'block';
+            isRunning = true;
+            interval = setInterval(updateStats, 1000);
+        }
+
+        function reanudarActividad() {
+            if (!isRunning) {
+                document.getElementById('status').textContent = 'EN PROGRESO';
+                isRunning = true;
+                interval = setInterval(updateStats, 1000);
+            }
+        }
+
+        function finalizarActividad() {
+            clearInterval(interval);
+            isRunning = false;
+            guardarActividad();
+            mostrarActividades();
+            document.getElementById('status').textContent = 'DETENIDO';
+        }
+
+        function updateStats() {
+            totalTime++;
+            totalDistance += 0.01; // Simulando 10 metros por segundo (36 km/h)
+
+            const hours = Math.floor(totalTime / 3600).toString().padStart(2, '0');
+            const minutes = Math.floor((totalTime % 3600) / 60).toString().padStart(2, '0');
+            const seconds = (totalTime % 60).toString().padStart(2, '0');
+
+            document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('distance').textContent = totalDistance.toFixed(2);
+
+            const pace = totalDistance > 0 ? (totalTime / 3600) / totalDistance : 0;
+            document.getElementById('pace').textContent = pace.toFixed(2);
+        }
+
+        function guardarActividad() {
+            const actividad = {
+                tiempo: document.getElementById('time').textContent,
+                distancia: document.getElementById('distance').textContent,
+                ritmo: document.getElementById('pace').textContent
+            };
+
+            let actividades = JSON.parse(localStorage.getItem('actividades')) || [];
+            actividades.push(actividad);
+            localStorage.setItem('actividades', JSON.stringify(actividades));
+        }
+
+        function mostrarActividades() {
+            const actividadList = document.getElementById('activity-list');
+            actividadList.innerHTML = '';
+
+            const actividades = JSON.parse(localStorage.getItem('actividades')) || [];
+            actividades.forEach((actividad, index) => {
+                const actividadItem = document.createElement('div');
+                actividadItem.className = 'activity-item';
+                actividadItem.innerHTML = `
+                    <h3>Actividad ${index + 1}</h3>
+                    <p><strong>Tiempo:</strong> ${actividad.tiempo}</p>
+                    <p><strong>Distancia:</strong> ${actividad.distancia} km</p>
+                    <p><strong>Ritmo:</strong> ${actividad.ritmo} km/h</p>
+                `;
+                actividadList.appendChild(actividadItem);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', mostrarActividades);
+    </script>
+
+</body>
+</html>
+
+
+

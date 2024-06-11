@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Meta Tags y Título -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BikeBlitz - La Comunidad de Ciclismo</title>
+
+    <!-- Fuente de íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Estilos CSS -->
+    <style>
+        /* Estilo general del cuerpo */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Estilo del encabezado */
+        .header {
+            background: linear-gradient(to right, #8e44ad, #6a2984);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* Título del encabezado */
+        .header h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        /* Subtítulo del encabezado */
+        .header p {
+            font-size: 1.2em;
+            margin: 10px 0 20px;
+        }
+
+        /* Imagen del encabezado */
+        .header img {
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        /* Botones en el encabezado */
+        .header-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Botón de usuario */
+        .user-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* Dropdown para el botón de usuario */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        /* Enlaces dentro del dropdown */
+        .dropdown a {
+            display: block;
+            padding: 10px 20px;
+            color: #8e44ad;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown a:hover {
+            background-color: #f4f4f4;
+        }
+
+        /* Estilo de los botones generales */
+        .button {
+            background-color: #ffffff;
+            color: #8e44ad;
+            border: 2px solid #8e44ad;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background-color: #8e44ad;
+            color: white;
+        }
+
+        /* Botón para descubrir más */
+        .discover-button {
+            background-color: #16a085;
+            color: white;
+            border: 2px solid #16a085;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .discover-button:hover {
+            background-color: #128076;
+            border-color: #128076;
+        }
+
+        /* Navegación principal */
+        .nav {
+            display: flex;
+            justify-content: center;
+            background-color: #16a085;
+            padding: 10px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav a {
+            padding: 14px 20px;
+            display: block;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav a:hover {
+            background-color: #128076;
+        }
+
+        /* Sección principal */
+        .main {
+            padding: 40px 20px;
+            text-align: center;
+            background-color: #ffffff;
+        }
+
+        .main h2 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .main p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Sección de características */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        /* Estilo individual de cada característica */
+        .feature {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: calc(33% - 20px);
+            padding: 20px;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature h3 {
+            font-size: 1.5em;
+            color: #8e44ad;
+            margin-top: 0;
+        }
+
+        .feature p {
+            font-size: 1em;
+            color: #666;
+        }
+
+        .feature .icon {
+            font-size: 2.5em;
+            color: #16a085;
+            position: absolute;
+            top: -20px;
+            right: 20px;
+        }
+
+        .feature img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        /* Sección de "Acerca de" y "Contacto" */
+        .about, .contact {
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .about h2, .contact h2 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .about p, .contact p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Información de contacto */
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .contact-info i {
+            color: #16a085;
+            margin-right: 10px;
+        }
+
+        /* Pie de página */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .about img, .main img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Media queries para dispositivos móviles */
+        @media (max-width: 1024px) {
+            .feature {
+                width: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 10px;
+            }
+            .header-buttons {
+                position: static;
+                margin-bottom: 10px;
+            }
+            .header-buttons .button {
+                margin: 5px 0;
+            }
+            .nav {
+                flex-direction: column;
+                padding: 5px 0;
+            }
+            .nav a {
+                padding: 10px;
+            }
+            .main h2 {
+                font-size: 2em;
+            }
+            .main p {
+                font-size: 1em;
+            }
+            .features {
+                flex-direction: column;
+            }
+            .feature {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .header p {
+                font-size: 1em;
+            }
+            .nav a {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado -->
+    <div class="header">
+        <div class="header-buttons">
+            <button class="user-button"><i class="fas fa-user"></i></button>
+            <div class="dropdown">
+                <a href="#login">Iniciar Sesión</a>
+                <a href="#register">Crear Cuenta</a>
+            </div>
+        </div>
+        <h1>BikeBlitz</h1>
+        <p>Únete a la comunidad ciclista y lleva tu rendimiento al siguiente nivel</p>
+        <a href="#features" class="discover-button">Descubre Más</a>
+    </div>
+
+    <!-- Navegación -->
+    <div class="nav">
+        <a href="#home" onclick="scrollToSection('home')">Inicio</a>
+        <a href="#features" onclick="scrollToSection('features')">Características</a>
+        <a href="#about" onclick="scrollToSection('about')">Acerca de</a>
+        <a href="#contact" onclick="scrollToSection('contact')">Contacto</a>
+    </div>
+
+    <!-- Sección principal -->
+    <div class="main" id="home">
+        <h2>Bienvenido a BikeBlitz</h2>
+        <p>BikeBlitz es la aplicación definitiva para ciclistas de todos los niveles. Rastrea tus recorridos, analiza tu rendimiento y compite con amigos.</p>
+        <img src="https://chaton-files.s3.us-east-2.amazonaws.com/p/VeRPkWqx2asrle2Swjkeh/SIeVRUEly7ChCVRmeQMBx/6YpQ9HjbhyoHDuPYbki8x1.jpeg" alt="Ciclismo">
+    </div>
+
+    <!-- Sección de características -->
+    <div class="main" id="features">
+        <h2>Características</h2>
+        <div class="features">
+            <div class="feature">
+                <div class="icon"><i class="fas fa-route"></i></div>
+                <h3>Rastreo de Rutas</h3>
+                <p>Registra tus rutas con precisión utilizando el GPS integrado y obtén estadísticas detalladas de cada recorrido.</p>
+                <img src="https://lh4.googleusercontent.com/proxy/8l1SC4A3VSS2Z4yoCJlc3-E2bYL49_lO51Q_AMti4xFfh40zJWlBfT1r6uaQqb4Ovy7pUVY0sdY7pBG19I1wADOugMzDJsvWPLYvLVOjPJoRHIVxZHXqHdt89yIYGqgFT5_77ISuKPAQH_K2EdrUQA" alt="Rastreo de Rutas">
+            </div>
+            <div class="feature">
+                <div class="icon"><i class="fas fa-users"></i></div>
+                <h3>Comparte y Compite</h3>
+                <p>Conéctate con amigos, comparte tus logros y compite en desafíos semanales para mantenerte motivado.</p>
+                <img src="https://chaton-files.s3.us-east-2.amazonaws.com/p/LG9JqV11Y0qh9buHvRuij/kILNWD64i1HTByVlr2waR/iOusM3zwXjGniZ8DI7Drr1.jpeg" alt="Comparte y Compite">
+            </div>
+            <div class="feature">
+                <div class="icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Analiza tu Rendimiento</h3>
+                <p>Accede a informes detallados de tu rendimiento, identifica áreas de mejora y alcanza tus objetivos.</p>
+                <img src="https://blog.endurancegroup.org/wp-content/uploads/2021/04/D36C218D-139E-4C16-A1DF-A2BFF29EB90C_1_105_c.jpeg" alt="Analiza tu Rendimiento">
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección Acerca de -->
+    <div class="about" id="about">
+        <h2>Acerca de</h2>
+        <p>BikeBlitz nació de la pasión por el ciclismo y la tecnología. Nuestra misión es proporcionar a los ciclistas las herramientas necesarias para mejorar su rendimiento y disfrutar más de cada salida.</p>
+        <img src="https://chaton-files.s3.us-east-2.amazonaws.com/p/YWorlxC4oCPEB41uIUV2h/3r2VcigesJTdCKSLOMxdf/7isOcZA6qq6N0BSe7wkOK1.jpeg" alt="Acerca de">
+    </div>
+
+    <!-- Sección de Contacto -->
+    <div class="contact" id="contact">
+        <h2>Contacto</h2>
+        <p>¿Tienes alguna pregunta o comentario? ¡Nos encantaría saber de ti!</p>
+        <div class="contact-info">
+            <div><i class="fas fa-envelope"></i> contacto@bikeblitz.com</div>
+        </div>
+    </div>
+
+    <!-- Pie de página -->
+    <div class="footer">
+        <p>&copy; 2024 BikeBlitz. Todos los derechos reservados.</p>
+    </div>
+
+    <!-- Scripts JavaScript -->
+    <script>
+        // Función para desplazarse suavemente a una sección
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Mostrar u ocultar el dropdown al hacer clic en el botón de usuario
+        document.querySelector('.user-button').addEventListener('click', function() {
+            const dropdown = document.querySelector('.dropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Ocultar el dropdown al hacer clic fuera de él
+        document.addEventListener('click', function(event) {
+            const isClickInside = document.querySelector('.header-buttons').contains(event.target);
+            if (!isClickInside) {
+                document.querySelector('.dropdown').style.display = 'none';
+            }
+        });
+
+        // Redirigir a las páginas de inicio de sesión y registro
+        document.querySelector('.dropdown a[href="#login"]').addEventListener('click', function() {
+            window.location.href = 'Inicio de sesion.html';
+        });
+
+        document.querySelector('.dropdown a[href="#register"]').addEventListener('click', function() {
+            window.location.href = 'Crear cuenta.html';
+        });
+    </script>
+</body>
+</html>

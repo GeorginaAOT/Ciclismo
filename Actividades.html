@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades</title>
+    <!-- Carga de la biblioteca de iconos Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-d7M1zLWfwX+pFhaeLozHEgo+dG3OwgLgLf8GqABd6pQm9f9Qn4FzK0E5/xlJ3S52X8tibF6qBVuMdDt3DPLbQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Estilo general del cuerpo */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Encabezado */
+        .header {
+            background-color: #8e44ad; /* Morado */
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            font-size: 18px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .header .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header .user-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .user-icons button {
+            background: none;
+            border: none;
+            color: white;
+            margin-left: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Contenido principal */
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+        }
+
+        /* Tarjeta de actividad */
+        .activity-card {
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .activity-card h3 {
+            margin: 0;
+            color: #8e44ad; /* Morado */
+        }
+
+        .activity-details {
+            color: #777;
+        }
+
+        .activity-details span {
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Botones de actividad */
+        .activity-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .activity-buttons button {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .activity-buttons .edit-btn {
+            background-color: #8e44ad; /* Morado */
+            color: white;
+        }
+
+        .activity-buttons .delete-btn {
+            background-color: #e74c3c; /* Rojo */
+            color: white;
+        }
+
+        .activity-buttons .edit-btn:hover {
+            background-color: #722d8d;
+        }
+
+        .activity-buttons .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* Pie de página */
+        footer {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            background-color: #8e44ad; /* Morado */
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+
+        footer button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        footer button:hover {
+            background-color: #722d8d;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado -->
+    <div class="header">
+        <div class="title">Actividades</div>
+        <div class="user-icons">
+            <!-- Botones de iconos de usuario -->
+            <button><i class="fas fa-search"></i></button>
+            <button><i class="fas fa-cog"></i></button>
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="content">
+        <!-- Tarjeta de actividad: Carrera matutina -->
+        <div class="activity-card">
+            <div>
+                <h3>Carrera matutina</h3>
+                <div class="activity-details">
+                    <span>Distancia: 5 km</span>
+                    <span>Duración: 30 min</span>
+                    <span>Desnivel positivo: 100 m</span>
+                </div>
+            </div>
+            <div class="activity-buttons">
+                <!-- Botón de eliminar actividad -->
+                <button class="delete-btn"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+        </div>
+        
+        <!-- Tarjeta de actividad: Paseo en bicicleta -->
+        <div class="activity-card">
+            <div>
+                <h3>Paseo en bicicleta</h3>
+                <div class="activity-details">
+                    <span>Distancia: 20 km</span>
+                    <span>Duración: 1h 15min</span>
+                    <span>Desnivel positivo: 300 m</span>
+                </div>
+            </div>
+            <div class="activity-buttons">
+                <!-- Botón de eliminar actividad -->
+                <button class="delete-btn"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de página con botón de regreso -->
+    <footer>
+        <button onclick="window.location.href='Tu.html'"><i class="fas fa-arrow-left"></i> Regresar</button>
+    </footer>
+
+</body>
+</html>

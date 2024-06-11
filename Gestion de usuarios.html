@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Ciclistas</title>
+    <!-- Incluye los estilos de Bootstrap desde un CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Incluye los estilos de FontAwesome desde un CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Importa la fuente Roboto desde Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+        
+        /* Estilos generales para el cuerpo */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Estilos para el encabezado */
+        .header {
+            background-color: #8e44ad;
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        /* Estilos para el botón de menú */
+        .menu-toggle {
+            background-color: #8e44ad;
+            border: none;
+            color: #fff;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background-color: #732d91;
+        }
+
+        /* Estilos para la barra lateral */
+        .sidebar {
+            background-color: #8e44ad;
+            padding: 20px;
+            height: 100%;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: left 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar .logo img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .sidebar .logo span {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            font-size: 18px;
+            padding: 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #7d3c98;
+            padding-left: 25px;
+        }
+
+        .sidebar a i {
+            margin-right: 10px;
+        }
+
+        /* Estilos para el contenedor principal */
+        .container {
+            margin-left: 0;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+            margin-top: 60px;
+        }
+
+        .card {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: none;
+        }
+
+        .card-header {
+            background-color: #16a085;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+            padding: 15px;
+            font-weight: bold;
+        }
+
+        .card-body {
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        .section-title {
+            color: #8e44ad;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .saved-message {
+            display: none;
+            color: green;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .fade-in-out {
+            animation: fadeInOut 2s;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 992px) {
+            .header h3 {
+                font-size: 20px;
+            }
+
+            .container {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .menu-toggle {
+                position: fixed;
+                top: 15px;
+                left: 15px;
+                z-index: 1001;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header h3 {
+                font-size: 18px;
+            }
+
+            .menu-toggle {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .card-header, .card-body {
+                padding: 10px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .header h3 {
+                font-size: 16px;
+            }
+
+            .menu-toggle {
+                padding: 5px;
+                font-size: 12px;
+            }
+
+            .card-header, .card-body {
+                padding: 8px;
+            }
+
+            .section-title {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado de la página -->
+    <div class="header">
+        <h3>Gestión de Ciclistas</h3>
+        <!-- Botón para alternar el menú lateral -->
+        <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
+    </div>
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <div class="logo">
+            <img id="profile-pic" src="https://via.placeholder.com/100" alt="Foto de Perfil">
+            <!-- Campo para subir una nueva foto de perfil -->
+            <input type="file" id="upload-pic" style="display: none;" onchange="loadProfilePic(event)">
+            <button class="btn btn-sm btn-light mt-2" onclick="document.getElementById('upload-pic').click()">Cambiar foto</button>
+            <span id="admin-name">Georgina</span>
+        </div>
+        <!-- Enlaces de navegación de la barra lateral -->
+        <a href="Panel de control.html"><i class="fas fa-tachometer-alt"></i> Panel de Control</a>
+        <a href="Gestion de ciclistas.html"><i class="fas fa-user"></i> Gestión de Ciclistas</a>
+        <a href="soporte y feedback.html"><i class="fas fa-comments"></i> Soporte y Feedback</a>
+    </div>
+    <!-- Contenedor principal -->
+    <div class="container">
+        <div id="gestion-ciclistas" class="section">
+            <!-- Tarjeta para la lista de ciclistas -->
+            <div class="card">
+                <div class="card-header">
+                    Lista de Ciclistas
+                </div>
+                <div class="card-body">
+                    <h4 class="section-title">Ciclistas Registrados</h4>
+                    <ul id="cyclist-list" class="list-group">
+                        <!-- Lista de ciclistas se llenará dinámicamente -->
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Tarjeta para añadir/editar ciclista -->
+            <div class="card">
+                <div class="card-header">
+                    Añadir/Editar Ciclista
+                </div>
+                <div class="card-body">
+                    <!-- Botón para mostrar el formulario de añadir ciclista -->
+                    <button id="show-form-button" class="btn btn-primary mb-3" onclick="toggleForm()">Añadir</button>
+                    <!-- Formulario de ciclista, inicialmente oculto -->
+                    <form id="cyclist-form" style="display:none;" onsubmit="saveCyclist(event)">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nombre completo</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dob" class="form-label">Fecha de nacimiento</label>
+                            <input type="date" class="form-control" id="dob" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" id="address" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="club" class="form-label">Club</label>
+                            <input type="text" class="form-control" id="club">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="button" class="btn btn-secondary" onclick="toggleForm()">Cancelar</button>
+                    </form>
+                    <!-- Mensaje de confirmación de guardado -->
+                    <div id="saved-message" class="saved-message">¡Guardado con éxito!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función que se ejecuta al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProfilePicFromLocalStorage(); // Carga la foto de perfil guardada
+            loadCyclistsFromLocalStorage(); // Carga los ciclistas guardados
+        });
+
+        // Alterna la visibilidad del menú lateral
+        function toggleMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Alterna la visibilidad del formulario de ciclistas
+        function toggleForm() {
+            const form = document.getElementById('cyclist-form');
+            const button = document.getElementById('show-form-button');
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+                button.style.display = 'none';
+            } else {
+                form.style.display = 'none';
+                button.style.display = 'block';
+            }
+        }
+
+        // Guarda los datos del ciclista en el almacenamiento local y actualiza la lista de ciclistas
+        function saveCyclist(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const dob = document.getElementById('dob').value;
+            const address = document.getElementById('address').value;
+            const club = document.getElementById('club').value;
+            const email = document.getElementById('email').value;
+
+            const cyclist = {
+                name,
+                dob,
+                address,
+                club,
+                email
+            };
+
+            let cyclists = JSON.parse(localStorage.getItem('cyclists')) || [];
+            cyclists.push(cyclist);
+            localStorage.setItem('cyclists', JSON.stringify(cyclists));
+
+            displayCyclist(cyclist);
+
+            document.getElementById('cyclist-form').reset();
+            toggleForm();
+
+            const savedMessage = document.getElementById('saved-message');
+            savedMessage.style.display = 'block';
+            setTimeout(() => {
+                savedMessage.classList.add('fade-in-out');
+                setTimeout(() => {
+                    savedMessage.style.display = 'none';
+                    savedMessage.classList.remove('fade-in-out');
+                }, 2000);
+            }, 0);
+        }
+
+        // Muestra un ciclista en la lista
+        function displayCyclist(cyclist) {
+            const cyclistList = document.getElementById('cyclist-list');
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item';
+            listItem.innerHTML = `
+                <strong>Nombre:</strong> ${cyclist.name} <br>
+                <strong>Fecha de Nacimiento:</strong> ${cyclist.dob} <br>
+                <strong>Dirección:</strong> ${cyclist.address} <br>
+                <strong>Club:</strong> ${cyclist.club} <br>
+                <strong>Email:</strong> ${cyclist.email}
+            `;
+            cyclistList.appendChild(listItem);
+        }
+
+        // Carga los ciclistas desde el almacenamiento local y los muestra en la lista
+        function loadCyclistsFromLocalStorage() {
+            const cyclists = JSON.parse(localStorage.getItem('cyclists')) || [];
+            cyclists.forEach(cyclist => displayCyclist(cyclist));
+        }
+
+        // Carga la foto de perfil seleccionada y la guarda en el almacenamiento local
+        function loadProfilePic(event) {
+            const input = event.target;
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const profilePic = document.getElementById('profile-pic');
+                    profilePic.src = e.target.result;
+                    localStorage.setItem('profilePic', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Carga la foto de perfil desde el almacenamiento local
+        function loadProfilePicFromLocalStorage() {
+            const savedPic = localStorage.getItem('profilePic');
+            if (savedPic) {
+                document.getElementById('profile-pic').src = savedPic;
+            }
+        }
+    </script>
+</body>
+</html>

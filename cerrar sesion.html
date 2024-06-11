@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Metadatos básicos de la página -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerrar Sesión</title>
+    
+    <!-- Enlace a la hoja de estilos de FontAwesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-d7M1zLWfwX+pFhaeLozHEgo+dG3OwgLgLf8GqABd6pQm9f9Qn4FzK0E5/xlJ3S52X8tibF6qBVuMdDt3DPLbQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Estilos internos -->
+    <style>
+        /* Estilo para el cuerpo de la página */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        
+        /* Estilo para el contenedor principal */
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            margin: 20px;
+            transition: transform 0.3s;
+        }
+
+        /* Efecto al pasar el ratón sobre el contenedor */
+        .container:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Estilo para el título dentro del contenedor */
+        .container h1 {
+            color: #8e44ad;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        /* Estilo para el párrafo dentro del contenedor */
+        .container p {
+            color: #777;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        /* Estilo para el contenedor de los botones */
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Estilo general para los botones */
+        .buttons button {
+            padding: 15px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            width: 100%;
+        }
+
+        /* Estilo para el botón de cerrar sesión */
+        .buttons .logout-btn {
+            background-color: #8e44ad;
+            color: white;
+        }
+
+        /* Estilo para el botón de cancelar */
+        .buttons .cancel-btn {
+            background-color: #40E0D0;
+            color: white;
+        }
+
+        /* Efecto al pasar el ratón sobre el botón de cerrar sesión */
+        .buttons .logout-btn:hover {
+            background-color: #722d8d;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Efecto al pasar el ratón sobre el botón de cancelar */
+        .buttons .cancel-btn:hover {
+            background-color: #36b7b1;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="container">
+        <h1>¿Estás seguro de que deseas cerrar sesión?</h1>
+        <p>Si cierras sesión, tendrás que volver a ingresar tus credenciales para acceder a tu cuenta.</p>
+        <div class="buttons">
+            <!-- Botón para cerrar sesión -->
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </button>
+            <!-- Botón para cancelar -->
+            <button class="cancel-btn" onclick="cancel()">
+                <i class="fas fa-times"></i> Cancelar
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Función para cerrar sesión
+        function logout() {
+            // Aquí puedes agregar la lógica para cerrar sesión, como redirigir a la página de inicio de sesión
+            alert("Has cerrado sesión correctamente.");
+            window.location.href = 'Inicio de sesion.html'; // Redirige a la página de inicio de sesión
+        }
+
+        // Función para cancelar el cierre de sesión
+        function cancel() {
+            // Redirige a la página anterior o al perfil del usuario
+            window.location.href = 'Inicio de sesion.html'; // Redirige a la página de inicio de sesión
+        }
+    </script>
+</body>
+</html>

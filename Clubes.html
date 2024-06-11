@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BikeBlitz</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilos globales para el cuerpo */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        /* Estilos para la cabecera */
+        .header {
+            background-color: #8e44ad;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .nav-items {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-items button {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-items button:hover {
+            color: #ccc;
+        }
+
+        /* Estilos para los botones de la cabecera */
+        .header-buttons {
+            display: flex;
+            justify-content: space-around;
+            background-color: #8e44ad;
+            padding: 10px 0;
+        }
+
+        .header-buttons button {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 5px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .header-buttons button:hover {
+            background-color: #9b59b6;
+        }
+
+        /* Estilos para el contenido */
+        .content {
+            padding: 20px;
+            background-color: #fff;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .content h2 {
+            color: #8e44ad;
+            margin-bottom: 20px;
+        }
+
+        .challenge, .club {
+            margin-bottom: 30px;
+        }
+
+        .challenge h3, .club h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .challenge p, .club p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .cta button, .join-btn {
+            background-color: #16a085;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .cta button:hover, .join-btn:hover {
+            background-color: #1abc9c;
+        }
+
+        /* Estilos para secciones específicas */
+        .reto, .reto-recomendados, .clubes {
+            padding: 20px;
+            background-color: #fff;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .reto h2, .clubes h2 {
+            color: #8e44ad;
+            margin-bottom: 20px;
+        }
+
+        .reto-recomendados h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .club {
+            display: flex;
+            align-items: center;
+        }
+
+        .club img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .club-info {
+            flex-grow: 1;
+        }
+
+        .club-info h3 {
+            margin: 0;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .club-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Estilos para el pie de página */
+        footer {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            background-color: #8e44ad;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        footer button {
+            background-color: #8e44ad;
+            color: #fff;
+            border: none;
+            padding: 10px 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            flex-grow: 1;
+            font-weight: bold;
+        }
+
+        footer button:hover {
+            background-color: #6c3483;
+        }
+
+        @media (max-width: 600px) {
+            footer button {
+                padding: 10px 5px;
+                font-size: 12px;
+            }
+        }
+    </style>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <header class="header">
+        <h3>Grupos</h3>
+        <div class="nav-items">
+            <!-- Botones de navegación con íconos -->
+            <button onclick="window.location.href='Mensajes.html'"><i class="bi bi-envelope-fill"></i></button> <!-- Icono de mensaje -->
+        </div>
+    </header>
+    <div class="header-buttons">
+        <button>Clubes</button>
+        <button onclick="window.location.href='Retos.html'">Retos</button>
+    </div>
+    <section class="reto container">
+        <h2>Reto de abril: racha</h2>
+        <p>Completa tres actividades de 15 minutos a la semana durante cuatro semanas.<br>Desde el 1 abr. hasta el 28 de abril de 2024</p>
+        <button class="join-btn" data-id="reto-abril">Unirse</button>
+    </section>
+    <section class="reto-recomendados container">
+        <h3>Recomendados para ti</h3>
+        <div id="carouselRecomendados" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="challenge">
+                        <h3>Le Col Classics</h3>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="challenge">
+                        <h3>Running Up for Air</h3>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselRecomendados" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselRecomendados" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
+        </div>
+    </section>
+    <section class="clubes container">
+        <h2>Clubes</h2>
+        <div class="club">
+            <img src="https://via.placeholder.com/50" alt="Club Logo">
+            <div class="club-info">
+                <h3>The BikeBlitz Club</h3>
+                <p>San Francisco, California<br>5,227,499 atletas</p>
+            </div>
+            <button class="join-btn" data-id="bikeblitz-club">Unirse</button>
+        </div>
+        <h3>Clubes populares en tu zona</h3>
+        <div class="club">
+            <img src="https://via.placeholder.com/50" alt="Club Logo">
+            <div class="club-info">
+                <h3>HUASTECA CYCLING</h3>
+                <p>San Pedro Garza García, Nuevo León, México<br>1,222 ciclistas</p>
+            </div>
+            <button class="join-btn" data-id="huasteca-cycling">Unirse</button>
+        </div>
+        <div class="club">
+            <img src="https://via.placeholder.com/50" alt="Club Logo">
+            <div class="club-info">
+                <h3>Moviendo la rueda</h3>
+                <p>Monterrey, Nuevo León, México<br>968 ciclistas</p>
+            </div>
+            <button class="join-btn" data-id="moviendo-la-rueda">Unirse</button>
+        </div>
+    </section>
+    <footer>
+        <button id="btnInicio" onclick="window.location.href='Inicio.html'">Inicio</button>
+        <button id="btnMapas" onclick="window.location.href='Mapas.html'">Mapas</button>
+        <button id="btnRegistrar" onclick="window.location.href='Registro.html'">Registrar</button>
+        <button id="btnGrupos" onclick="window.location.href='Retos.html'">Grupos</button>
+        <button id="btnTu" onclick="window.location.href='Tu.html'">Tú</button>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.join-btn');
+
+            buttons.forEach(button => {
+                const clubId = button.getAttribute('data-id');
+                // Verificar si el usuario ya se ha unido a este club
+                if (localStorage.getItem(clubId) === 'joined') {
+                    button.textContent = 'Te uniste';
+                    button.disabled = true;
+                }
+
+                // Manejar el evento de clic en el botón
+                button.addEventListener('click', function() {
+                    button.textContent = 'Te uniste';
+                    button.disabled = true;
+                    localStorage.setItem(clubId, 'joined');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

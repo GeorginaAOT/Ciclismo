@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Metadatos del documento -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas</title>
+    <!-- Enlace a una hoja de estilos externa para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-d7M1zLWfwX+pFhaeLozHEgo+dG3OwgLgLf8GqABd6pQm9f9Qn4FzK0E5/xlJ3S52X8tibF6qBVuMdDt3DPLbQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Estilos CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4; /* Fondo gris claro */
+            color: #333; /* Texto gris oscuro */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Altura mínima de la ventana */
+        }
+        .header {
+            background-color: #8e44ad; /* Fondo morado */
+            color: white; /* Texto blanco */
+            display: flex;
+            justify-content: space-between; /* Espacio entre elementos */
+            align-items: center; /* Centrar verticalmente */
+            padding: 15px;
+            font-size: 18px;
+            border-bottom: 1px solid #ccc; /* Línea inferior gris clara */
+        }
+        .header .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .header .user-icons {
+            display: flex;
+            align-items: center;
+        }
+        .header .user-icons button {
+            background: none;
+            border: none;
+            color: white;
+            margin-left: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+        }
+        .stats-section {
+            margin-bottom: 20px;
+        }
+        .stats-section h2 {
+            background-color: #40E0D0; /* Fondo turquesa */
+            color: white; /* Texto blanco */
+            padding: 10px;
+            border-radius: 5px;
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .stats-section .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ccc; /* Línea inferior gris clara */
+        }
+        .stats-section .stat-item:last-child {
+            border-bottom: none; /* Quitar línea inferior del último elemento */
+        }
+        .stats-section .stat-item span {
+            font-weight: bold;
+            color: #8e44ad; /* Texto morado */
+        }
+        footer {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            background-color: #8e44ad; /* Fondo morado */
+            color: white; /* Texto blanco */
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+        footer button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        footer button:hover {
+            background-color: #722d8d; /* Fondo morado más oscuro */
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado -->
+    <div class="header">
+        <!-- Botón para volver a la página anterior -->
+        <button onclick="window.history.back()"><i class="fas fa-arrow-left"></i></button>
+        <!-- Título de la página -->
+        <div class="title">Estadísticas</div>
+        <!-- Iconos del usuario -->
+        <div class="user-icons">
+            <button><i class="fas fa-bicycle"></i></button>
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="content">
+        <!-- Sección de estadísticas de actividad semanal -->
+        <div class="stats-section">
+            <h2>Promedio Actividad Semanal</h2>
+            <div class="stat-item">
+                <span>Recorridos en bicicleta</span>
+                <span>0</span>
+            </div>
+            <div class="stat-item">
+                <span>Duración</span>
+                <span>0h</span>
+            </div>
+            <div class="stat-item">
+                <span>Distancia</span>
+                <span>0 km</span>
+            </div>
+        </div>
+        <!-- Sección de estadísticas del año -->
+        <div class="stats-section">
+            <h2>En lo que va del año</h2>
+            <div class="stat-item">
+                <span>Recorridos en bicicleta</span>
+                <span>0</span>
+            </div>
+            <div class="stat-item">
+                <span>Duración</span>
+                <span>0h</span>
+            </div>
+            <div class="stat-item">
+                <span>Distancia</span>
+                <span>0 km</span>
+            </div>
+            <div class="stat-item">
+                <span>Desnivel positivo</span>
+                <span>0 m</span>
+            </div>
+        </div>
+        <!-- Sección de estadísticas de todos los tiempos -->
+        <div class="stats-section">
+            <h2>Todos los tiempos</h2>
+            <div class="stat-item">
+                <span>Recorridos en bicicleta</span>
+                <span>0</span>
+            </div>
+            <div class="stat-item">
+                <span>Distancia</span>
+                <span>0 km</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+

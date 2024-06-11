@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BikeBlitz - Buscador</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Agregamos FontAwesome para los iconos -->
+  <style>
+    /* Estilos CSS */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    .search-container {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-input {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .search-input::placeholder {
+      color: #999;
+    }
+
+    .search-btn {
+      width: 100%;
+      padding: 10px 0;
+      border: none;
+      border-radius: 20px;
+      background-color: #8e44ad; /* Morado */
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .search-btn:hover {
+      background-color: #6c3483; /* Morado más oscuro */
+    }
+
+    .back-btn {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px 0;
+      border: none;
+      border-radius: 20px;
+      background-color: #16a085; /* Turquesa */
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #1abc9c; /* Turquesa más claro */
+    }
+  </style>
+</head>
+<body>
+  <div class="search-container">
+    <form action="buscar.php" method="post">
+      <input type="text" name="searchQuery" class="search-input" placeholder="Buscar usuarios por correo electrónico...">
+      <button type="submit" class="search-btn"><i class="fas fa-search"></i>Buscar</button>
+    </form>
+    <button class="back-btn" onclick="goToHome()"><i class="fas fa-arrow-left"></i> Regresar a Inicio</button>
+  </div>
+
+  <script>
+    function goToHome() {
+      window.location.href = 'Inicio.html'; // Aquí puedes agregar la funcionalidad para redirigir a la página de inicio
+    }
+  </script>
+</body>
+</html>

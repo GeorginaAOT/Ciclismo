@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mejores Tiempos de Ciclismo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-d7M1zLWfwX+pFhaeLozHEgo+dG3OwgLgLf8GqABd6pQm9f9Qn4FzK0E5/xlJ3S52X8tibF6qBVuMdDt3DPLbQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .header {
+            background-color: #8e44ad; /* Morado */
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            font-size: 18px;
+            border-bottom: 1px solid #ccc;
+        }
+        .header .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .header .user-icons {
+            display: flex;
+            align-items: center;
+        }
+        .header .user-icons button {
+            background: none;
+            border: none;
+            color: white;
+            margin-left: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+        }
+        .best-times-section {
+            margin-bottom: 20px;
+        }
+        .best-times-section h2 {
+            background-color: #40E0D0; /* Turquesa */
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .best-times-section .time-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .best-times-section .time-item:last-child {
+            border-bottom: none;
+        }
+        .best-times-section .time-item span {
+            font-weight: bold;
+            color: #8e44ad; /* Morado */
+        }
+        footer {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            background-color: #8e44ad; /* Morado */
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+        footer button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        footer button:hover {
+            background-color: #722d8d;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <button onclick="window.history.back()"><i class="fas fa-arrow-left"></i></button>
+        <div class="title">Mejores Tiempos de Ciclismo</div>
+        <div class="user-icons">
+            <button><i class="fas fa-bicycle"></i></button>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="best-times-section">
+            <h2>Mejores Tiempos en Ciclismo</h2>
+            <div class="time-item">
+                <span>20 Km</span>
+                <span>32:15</span>
+            </div>
+            <div class="time-item">
+                <span>50 Km</span>
+                <span>1:18:40</span>
+            </div>
+            <div class="time-item">
+                <span>100 Km</span>
+                <span>2:45:20</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+

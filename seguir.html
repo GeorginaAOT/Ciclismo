@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-d7M1zLWfwX+pFhaeLozHEgo+dG3OwgLgLf8GqABd6pQm9f9Qn4FzK0E5/xlJ3S52X8tibF6qBVuMdDt3DPLbQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+            color: #333;
+        }
+        .header {
+            background-color: #8e44ad; /* Morado */
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom: 1px solid #dbdbdb;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header .title {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .header .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .header .user-icons {
+            display: flex;
+            align-items: center;
+        }
+        .header .user-icons button {
+            background: none;
+            border: none;
+            color: white;
+            margin-left: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background-color: white;
+            border-bottom: 1px solid #dbdbdb;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
+        }
+        .profile-details {
+            flex-grow: 1;
+        }
+        .profile-details h1 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+        .profile-details p {
+            margin: 5px 0;
+            color: #777;
+        }
+        .profile-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .profile-buttons button {
+            padding: 5px 10px;
+            font-size: 14px;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            cursor: pointer;
+            background-color: #fafafa;
+        }
+        .profile-buttons .follow-btn {
+            color: #40E0D0; /* Turquesa */
+        }
+        .profile-buttons .following-btn {
+            color: #8e44ad; /* Morado */
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            background-color: white;
+            border-bottom: 1px solid #dbdbdb;
+        }
+        .stats div {
+            text-align: center;
+            color: #8e44ad; /* Morado */
+        }
+        .stats div span {
+            display: block;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        .progress-chart {
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+        .progress-chart h3 {
+            color: #8e44ad; /* Morado */
+            margin-bottom: 20px;
+        }
+        .progress-chart .chart-container {
+            position: relative;
+            height: 250px;
+        }
+        .progress-chart .chart {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            height: 200px;
+        }
+        .progress-chart .chart .bar {
+            width: 10%;
+            background-color: #40E0D0; /* Turquesa */
+            transition: height 0.3s;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: relative;
+        }
+        .progress-chart .chart .bar span {
+            position: absolute;
+            bottom: -25px;
+            font-size: 14px;
+            color: #8e44ad; /* Morado */
+            width: 100%;
+            text-align: center;
+        }
+        .nav-menu {
+            background-color: white;
+            margin-top: 20px;
+            border-top: 1px solid #dbdbdb;
+        }
+        .nav-menu button {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            background: white;
+            cursor: pointer;
+            border-bottom: 1px solid #dbdbdb;
+            font-size: 16px;
+            color: #333;
+        }
+        .nav-menu button i {
+            font-size: 20px;
+            color: #8e44ad; /* Morado */
+            margin-right: 15px;
+        }
+        footer {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            background-color: #8e44ad; /* Morado */
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            border-top: 1px solid #dbdbdb;
+        }
+        footer button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        footer button:hover {
+            color: #40E0D0; /* Turquesa */
+        }
+    </style>
+    <script>
+        function redirigir(url) {
+            window.location.href = url;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const followBtn = document.querySelector('.follow-btn');
+            let seguidoresCount = 0;
+
+            followBtn.addEventListener('click', function() {
+                if (followBtn.classList.contains('follow-btn')) {
+                    followBtn.textContent = 'Siguiendo';
+                    followBtn.classList.remove('follow-btn');
+                    followBtn.classList.add('following-btn');
+                    seguidoresCount++;
+                } else {
+                    followBtn.textContent = 'Seguir';
+                    followBtn.classList.remove('following-btn');
+                    followBtn.classList.add('follow-btn');
+                    seguidoresCount--;
+                }
+                document.getElementById('seguidoresCount').textContent = seguidoresCount;
+            });
+
+            document.querySelector('.header .fa-cog').addEventListener('click', function() {
+                redirigir('configuracion.html');
+            });
+
+            document.querySelector('.nav-menu button:nth-child(1)').addEventListener('click', function() {
+                redirigir('Actividades.html');
+            });
+
+            document.querySelector('.nav-menu button:nth-child(2)').addEventListener('click', function() {
+                redirigir('estadistica.html');
+            });
+
+            document.querySelector('.nav-menu button:nth-child(3)').addEventListener('click', function() {
+                redirigir('Rutas.html');
+            });
+
+            document.querySelector('.nav-menu button:nth-child(4)').addEventListener('click', function() {
+                redirigir('mejores_tiempos.html');
+            });
+
+            document.querySelector('.nav-menu button:nth-child(5)').addEventListener('click', function() {
+                redirigir('equipamiento.html');
+            });
+
+            document.querySelector('footer #btnInicio').addEventListener('click', function() {
+                redirigir('Inicio.html');
+            });
+
+            document.querySelector('footer #btnMapas').addEventListener('click', function() {
+                redirigir('Mapas.html');
+            });
+
+            document.querySelector('footer #btnRegistrar').addEventListener('click', function() {
+                redirigir('Registro.html');
+            });
+
+            document.querySelector('footer #btnGrupos').addEventListener('click', function() {
+                redirigir('Retos.html');
+            });
+
+            document.querySelector('footer #btnTu').addEventListener('click', function() {
+                redirigir('Tu.html');
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <div class="header">
+        <div class="title">
+            <button class="back-button" onclick="redirigir('Inicio.html')"><i class="fas fa-arrow-left"></i></button>
+            Perfil
+        </div>
+        <div class="user-icons">
+            <button><i class="fas fa-search"></i></button>
+            <button><i class="fas fa-cog"></i></button>
+        </div>
+    </div>
+
+    <div class="profile">
+        <img src="https://via.placeholder.com/80" alt="Perfil">
+        <div class="profile-details">
+            <h1>Usuario</h1>
+            <p>San Luis de la Paz, Guanajuato, Mexico</p>
+        </div>
+        <div class="profile-buttons">
+            <button class="follow-btn"><i class="fas fa-user-plus"></i> Seguir</button>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div>
+            <span>0</span>
+            <div>Siguiendo</div>
+        </div>
+        <div>
+            <span id="seguidoresCount">0</span>
+            <div>Seguidores</div>
+        </div>
+    </div>
+
+    <div class="progress-chart">
+        <h3>Esta semana</h3>
+        <div class="chart-container">
+            <div class="chart">
+                <div class="bar" style="height: 50%;">
+                    <span>Lun</span>
+                </div>
+                <div class="bar" style="height: 70%;">
+                    <span>Mar</span>
+                </div>
+                <div class="bar" style="height: 30%;">
+                    <span>Mié</span>
+                </div>
+                <div class="bar" style="height: 80%;">
+                    <span>Jue</span>
+                </div>
+                <div class="bar" style="height: 60%;">
+                    <span>Vie</span>
+                </div>
+                <div class="bar" style="height: 40%;">
+                    <span>Sáb</span>
+                </div>
+                <div class="bar" style="height: 90%;">
+                    <span>Dom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

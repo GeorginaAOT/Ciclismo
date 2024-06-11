@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapas - BikeBlitz</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    /* Estilos CSS */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 70px; /* Espacio para el footer */
+    }
+
+    #map {
+      height: 50vh; /* Tamaño del mapa */
+      width: 95%;
+      max-width: 800px;
+      margin: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #8e44ad; /* Morado */
+      color: #fff;
+      font-size: 24px;
+      width: 100%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-container {
+      text-align: center;
+      margin-bottom: 10px;
+      padding: 0 10px;
+      width: 100%;
+    }
+
+    .search-input {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #8e44ad; /* Morado */
+      width: 70%;
+      max-width: 300px;
+      margin-right: 10px;
+      font-size: 16px;
+      background-color: #e0f7f9; /* Turquesa claro */
+    }
+
+    .search-btn {
+      padding: 10px;
+      border: none;
+      background-color: #48c9b0; /* Turquesa */
+      color: #fff;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: bold;
+    }
+
+    .search-btn:hover {
+      background-color: #1abc9c; /* Turquesa más oscuro */
+    }
+
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      padding: 0 10px;
+      width: 100%;
+    }
+
+    .filter-btn {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      background-color: #8e44ad; /* Morado */
+      color: #fff;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: bold;
+      text-align: center;
+      flex: 1 0 45%; /* Botones responsivos */
+    }
+
+    .filter-btn:hover {
+      background-color: #6c3483; /* Morado más oscuro */
+    }
+
+    /* Estilos del footer */
+    footer {
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      background-color: #8e44ad; /* Morado */
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    footer button {
+      background-color: #8e44ad; /* Morado */
+      color: #fff;
+      border: none;
+      padding: 10px 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      flex-grow: 1;
+      font-weight: bold;
+    }
+
+    footer button:hover {
+      background-color: #6c3483; /* Morado más oscuro */
+    }
+
+    /* Adaptabilidad para pantallas pequeñas */
+    @media (max-width: 600px) {
+      .search-input {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      
+      .search-btn {
+        width: 100%;
+      }
+
+      .filter-btn {
+        max-width: none;
+        flex-grow: 1;
+      }
+
+      footer button {
+        padding: 10px 5px;
+        font-size: 12px;
+      }
+
+      #map {
+        height: 40vh; /* Tamaño del mapa para pantallas más pequeñas */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">Mapas</div>
+
+  <div class="content">
+    <div class="search-container">
+      <input type="text" id="search-input" class="search-input" placeholder="Buscar ubicación...">
+      <button class="search-btn" onclick="searchLocation()">Buscar</button>
+    </div>
+
+    <div class="filter-container">
+      <button class="filter-btn" onclick="redirigir('Rutas.html')">Ruta</button>
+      <button class="filter-btn" onclick="redirigir('Longitud.html')">Longitud</button>
+      <button class="filter-btn" onclick="redirigir('Dificultad.html')">Dificultad</button>
+      <button class="filter-btn" onclick="redirigir('Mapas.html')">Mapas</button>
+      <button class="filter-btn" onclick="redirigir('Desnivel.html')">Desnivel</button>
+      <button class="filter-btn" onclick="redirigir('Superficie.html')">Superficie</button>
+    </div>
+
+    <div id="map"></div>
+  </div>
+
+  <footer>
+    <button id="btnInicio" onclick="redirigir('Inicio.html')">Inicio</button>
+    <button id="btnMapas" onclick="redirigir('Mapas.html')">Mapas</button>
+    <button id="btnRegistrar" onclick="redirigir('registro.html')">Registrar</button>
+    <button id="btnGrupos" onclick="redirigir('Retos.html')">Grupos</button>
+    <button id="btnTu" onclick="redirigir('Tu.html')">Tú</button>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map;
+    var searchMarker;
+    var selectedLocation = JSON.parse(localStorage.getItem('selectedLocation')) || null;
+
+    function initMap() {
+      map = L.map('map').setView([51.505, -0.09], 13); // Ubicación inicial y nivel de zoom
+      
+      // Añadir el mapa base de OpenStreetMap
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      // Si hay una ubicación guardada, colocar el marcador en esa ubicación
+      if (selectedLocation) {
+        searchMarker = L.marker([selectedLocation.lat, selectedLocation.lon]).addTo(map)
+          .bindPopup("Ubicación guardada: " + selectedLocation.lat + ", " + selectedLocation.lon)
+          .openPopup();
+
+        map.setView([selectedLocation.lat, selectedLocation.lon], 13);
+      }
+
+      // Evento de clic en el mapa para seleccionar una ubicación
+      map.on('click', function(e) {
+        var lat = e.latlng.lat;
+        var lon = e.latlng.lng;
+
+        if (searchMarker) {
+          map.removeLayer(searchMarker);
+        }
+
+        searchMarker = L.marker([lat, lon]).addTo(map)
+          .bindPopup("Ubicación seleccionada: " + lat + ", " + lon)
+          .openPopup();
+
+        selectedLocation = { lat: lat, lon: lon };
+        localStorage.setItem('selectedLocation', JSON.stringify(selectedLocation));
+        console.log("Ubicación seleccionada:", selectedLocation);
+      });
+    }
+
+    function searchLocation() {
+      var query = document.getElementById('search-input').value;
+
+      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.length > 0) {
+            var firstResult = data[0];
+            var lat = firstResult.lat;
+            var lon = firstResult.lon;
+
+            if (searchMarker) {
+              map.removeLayer(searchMarker);
+            }
+
+            searchMarker = L.marker([lat, lon]).addTo(map)
+              .bindPopup(firstResult.display_name)
+              .openPopup();
+
+            map.setView([lat, lon], 13);
+
+            selectedLocation = { lat: lat, lon: lon };
+            localStorage.setItem('selectedLocation', JSON.stringify(selectedLocation));
+            console.log("Ubicación encontrada:", selectedLocation);
+          } else {
+            alert("Ubicación no encontrada");
+          }
+        });
+    }
+
+    function redirigir(pagina) {
+      window.location.href = pagina;
+    }
+
+    // Inicializar el mapa cuando el documento esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+      initMap();
+    });
+  </script>
+</body>
+</html>

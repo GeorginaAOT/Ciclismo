@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Metadatos del documento -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generación de informes</title>
+    <!-- Enlace a la hoja de estilos de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilos generales para el cuerpo del documento */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilos para el encabezado */
+        .header {
+            background-color: #8e44ad; /* Fondo morado */
+            color: #fff; /* Texto blanco */
+            padding: 15px;
+            display: flex;
+            justify-content: space-between; /* Espacio entre elementos */
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra inferior */
+        }
+
+        .header h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        /* Estilos para el botón del menú */
+        .menu-toggle {
+            background-color: #8e44ad;
+            border: none;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        /* Estilos para la barra lateral */
+        .sidebar {
+            background-color: #8e44ad;
+            padding: 20px;
+            height: 100%;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: -250px; /* Oculta la barra lateral */
+            width: 250px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: left 0.3s ease; /* Transición suave para mostrar/ocultar */
+            z-index: 1000;
+        }
+
+        .sidebar.active {
+            left: 0; /* Muestra la barra lateral */
+        }
+
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin: 10px 0;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilos para el contenedor principal */
+        .container {
+            margin-left: 0;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Estilos para las tarjetas */
+        .card {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #8e44ad;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+            padding: 10px 15px;
+            font-weight: bold;
+        }
+
+        .card-body {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Estilos para las alertas */
+        .alert {
+            background-color: #16a085;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert h4 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .alert p {
+            margin: 5px 0 0;
+        }
+
+        /* Estilos para la lista de usuarios */
+        .user-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .user-list li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-list li span {
+            font-weight: bold;
+        }
+
+        .user-list button {
+            margin-left: 5px;
+        }
+
+        /* Estilos responsivos para diferentes tamaños de pantalla */
+        @media (max-width: 992px) {
+            .header h3 {
+                font-size: 20px;
+            }
+
+            .sidebar {
+                width: 250px;
+                height: 100%;
+                position: fixed;
+                top: 0;
+                left: -250px;
+                transition: left 0.3s ease;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .container {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .menu-toggle {
+                position: fixed;
+                top: 15px;
+                left: 15px;
+                z-index: 1001;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header h3 {
+                font-size: 18px;
+            }
+
+            .menu-toggle {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .card-header, .card-body, .alert {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .header h3 {
+                font-size: 16px;
+            }
+
+            .menu-toggle {
+                padding: 5px;
+                font-size: 12px;
+            }
+
+            .card-header, .card-body, .alert {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado de la página -->
+    <div class="header">
+        <h3>Generación de informes</h3>
+        <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
+    </div>
+
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <a href="Panel de control JUEZ.html">Panel de Control</a>
+        <a href="Gestion de usuarios JUEZ.html">Gestión de Usuarios</a>
+        <a href="Generación de informes J.html">Generación de informes</a>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Sección de seguimiento de tiempos y posiciones -->
+        <div id="events" class="content-section">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Seguimiento de Tiempos y Posiciones
+                        </div>
+                        <div class="card-body">
+                            <form id="seguimientoForm">
+                                <div class="mb-3">
+                                    <label for="participante" class="form-label">Participante</label>
+                                    <input type="text" class="form-control" id="participante" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tiempo" class="form-label">Tiempo</label>
+                                    <input type="text" class="form-control" id="tiempo" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="posicion" class="form-label">Posición</label>
+                                    <input type="number" class="form-control" id="posicion" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="puntos_control" class="form-label">Puntos de Control</label>
+                                    <textarea class="form-control" id="puntos_control" rows="3" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Registrar Seguimiento</button>
+                            </form>
+                            <!-- Contenedor para mostrar la lista de seguimientos registrados -->
+                            <div id="listaSeguimientos" class="mt-4">
+                                <h4>Participantes Registrados</h4>
+                                <ul class="user-list" id="listaSeguimientosUl"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Instrucciones -->
+            <div class="alert mt-4">
+                <h4>Instrucciones</h4>
+                <p>Utilice esta herramienta para registrar y monitorear los tiempos y posiciones de los participantes en tiempo real.</p>
+            </div>
+        </div>
+
+        <!-- Sección de generación de informes -->
+        <div id="reports" class="content-section" style="display: none;">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Generación de Informes
+                        </div>
+                        <div class="card-body">
+                            <form id="informeForm">
+                                <div class="mb-3">
+                                    <label for="competencia" class="form-label">Competencia</label>
+                                    <input type="text" class="form-control" id="competencia" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fecha" class="form-label">Fecha</label>
+                                    <input type="date" class="form-control" id="fecha" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="analisis" class="form-label">Análisis de Tiempos</label>
+                                    <textarea class="form-control" id="analisis" rows="3" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="observaciones" class="form-label">Observaciones</label>
+                                    <textarea class="form-control" id="observaciones" rows="3" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Generar Informe</button>
+                            </form>
+                            <!-- Contenedor para mostrar el informe guardado -->
+                            <div id="informeGuardado" class="mt-4" style="display: none;">
+                                <h4>Informe Guardado</h4>
+                                <p><strong>Competencia:</strong> <span id="mostrarCompetencia"></span></p>
+                                <p><strong>Fecha:</strong> <span id="mostrarFecha"></span></p>
+                                <p><strong>Análisis de Tiempos:</strong> <span id="mostrarAnalisis"></span></p>
+                                <p><strong>Observaciones:</strong> <span id="mostrarObservaciones"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Instrucciones -->
+            <div class="alert mt-4">
+                <h4>Instrucciones</h4>
+                <p>Utilice esta herramienta para generar informes detallados sobre los resultados de las competiciones.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inclusión de la librería Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Función para mostrar una sección específica
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.style.display = 'none'; // Oculta todas las secciones
+            });
+            document.getElementById(sectionId).style.display = 'block'; // Muestra la sección seleccionada
+        }
+
+        // Función para alternar la visibilidad del menú lateral
+        function toggleMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active'); // Alterna la clase 'active' en la barra lateral
+        }
+
+        // Función para guardar datos en localStorage
+        function saveData(key, data) {
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+
+        // Función para cargar datos desde localStorage
+        function loadData(key) {
+            const data = localStorage.getItem(key);
+            return data ? JSON.parse(data) : null;
+        }
+
+        // Función para manejar el envío del formulario de seguimiento
+        function handleSeguimientoForm(event) {
+            event.preventDefault(); // Previene el envío del formulario por defecto
+
+            const participante = document.getElementById('participante').value;
+            const tiempo = document.getElementById('tiempo').value;
+            const posicion = document.getElementById('posicion').value;
+            const puntosControl = document.getElementById('puntos_control').value;
+
+            // Crea un objeto con los datos del formulario
+            const seguimientoData = { participante, tiempo, posicion, puntosControl };
+
+            // Cargar datos existentes
+            const seguimientos = loadData('seguimientos') || [];
+            // Añadir nuevo seguimiento
+            seguimientos.push(seguimientoData);
+
+            // Guarda los datos en localStorage
+            saveData('seguimientos', seguimientos);
+
+            // Actualizar la lista de seguimientos
+            updateSeguimientosList(seguimientos);
+
+            alert('Datos de seguimiento guardados correctamente.');
+        }
+
+        // Función para manejar el envío del formulario de informe
+        function handleInformeForm(event) {
+            event.preventDefault(); // Previene el envío del formulario por defecto
+
+            const competencia = document.getElementById('competencia').value;
+            const fecha = document.getElementById('fecha').value;
+            const analisis = document.getElementById('analisis').value;
+            const observaciones = document.getElementById('observaciones').value;
+
+            // Crea un objeto con los datos del formulario
+            const informeData = { competencia, fecha, analisis, observaciones };
+
+            // Guarda los datos en localStorage
+            saveData('informeData', informeData);
+
+            // Muestra el informe en la interfaz
+            document.getElementById('mostrarCompetencia').textContent = informeData.competencia;
+            document.getElementById('mostrarFecha').textContent = informeData.fecha;
+            document.getElementById('mostrarAnalisis').textContent = informeData.analisis;
+            document.getElementById('mostrarObservaciones').textContent = informeData.observaciones;
+
+            document.getElementById('informeGuardado').style.display = 'block';
+
+            alert('Datos del informe guardados correctamente.');
+        }
+
+        // Función para actualizar la lista de seguimientos
+        function updateSeguimientosList(seguimientos) {
+            const listaSeguimientosUl = document.getElementById('listaSeguimientosUl');
+            listaSeguimientosUl.innerHTML = '';
+
+            seguimientos.forEach((seguimiento, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${seguimiento.participante} - ${seguimiento.tiempo} - ${seguimiento.posicion}</span>
+                    <button class="btn btn-danger btn-sm" onclick="deleteSeguimiento(${index})">Eliminar</button>
+                `;
+                listaSeguimientosUl.appendChild(li);
+            });
+        }
+
+        // Función para eliminar un seguimiento
+        function deleteSeguimiento(index) {
+            const seguimientos = loadData('seguimientos') || [];
+            seguimientos.splice(index, 1);
+            saveData('seguimientos', seguimientos);
+            updateSeguimientosList(seguimientos);
+        }
+
+        // Función para cargar los datos guardados al iniciar la página
+        function loadSavedData() {
+            const seguimientos = loadData('seguimientos') || [];
+            updateSeguimientosList(seguimientos);
+
+            const informeData = loadData('informeData');
+            if (informeData) {
+                document.getElementById('competencia').value = informeData.competencia;
+                document.getElementById('fecha').value = informeData.fecha;
+                document.getElementById('analisis').value = informeData.analisis;
+                document.getElementById('observaciones').value = informeData.observaciones;
+
+                // Muestra el informe en la interfaz si hay datos guardados
+                document.getElementById('mostrarCompetencia').textContent = informeData.competencia;
+                document.getElementById('mostrarFecha').textContent = informeData.fecha;
+                document.getElementById('mostrarAnalisis').textContent = informeData.analisis;
+                document.getElementById('mostrarObservaciones').textContent = informeData.observaciones;
+
+                document.getElementById('informeGuardado').style.display = 'block';
+            }
+        }
+
+        // Asigna los manejadores de eventos a los formularios
+        document.getElementById('seguimientoForm').addEventListener('submit', handleSeguimientoForm);
+        document.getElementById('informeForm').addEventListener('submit', handleInformeForm);
+
+        // Carga los datos guardados al iniciar la página
+        loadSavedData();
+
+        // Mostrar la sección de seguimiento de tiempos y posiciones al cargar la página
+        showSection('events');
+    </script>
+</body>
+</html>
+

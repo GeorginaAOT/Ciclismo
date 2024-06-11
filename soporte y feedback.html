@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soporte y Feedback</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .header {
+            background-color: #8e44ad;
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .header h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .menu-toggle {
+            background-color: #8e44ad;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #8e44ad;
+            color: #fff;
+            padding-top: 60px;
+            transform: translateX(-250px);
+            transition: transform 0.3s ease;
+            z-index: 999;
+        }
+        .sidebar.active {
+            transform: translateX(0);
+        }
+        .sidebar .logo {
+            text-align: center;
+            padding: 15px;
+        }
+        .sidebar .logo img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+        .sidebar .logo input[type="file"] {
+            display: none;
+        }
+        .sidebar .logo button {
+            background-color: #fff;
+            color: #8e44ad;
+            border: none;
+            padding: 5px 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .sidebar a {
+            display: block;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .container {
+            padding: 20px;
+            margin-top: 80px;
+        }
+        .card {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: none;
+        }
+        .card-header {
+            background-color: #16a085;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+            padding: 15px;
+            font-weight: bold;
+        }
+        .card-body {
+            background-color: #fff;
+            padding: 20px;
+        }
+        .section-title {
+            color: #8e44ad;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .saved-message {
+            display: none;
+            color: green;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .fade-in-out {
+            animation: fadeInOut 2s;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        @media (max-width: 992px) {
+            .header h3 {
+                font-size: 20px;
+            }
+            .container {
+                padding: 20px;
+            }
+            .card-header, .card-body {
+                padding: 10px;
+            }
+            .section-title {
+                font-size: 18px;
+            }
+        }
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header h3 {
+                font-size: 18px;
+            }
+            .card-header, .card-body {
+                padding: 10px;
+            }
+            .section-title {
+                font-size: 18px;
+            }
+        }
+        @media (max-width: 576px) {
+            .header h3 {
+                font-size: 16px;
+            }
+            .card-header, .card-body {
+                padding: 8px;
+            }
+            .section-title {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h3>Soporte y Feedback</h3>
+        <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
+    </div>
+    <div class="sidebar">
+        <div class="logo">
+            <img id="profile-pic" src="" alt="Foto de Perfil">
+            <input type="file" id="upload-pic" onchange="loadProfilePic(event)">
+            <button class="btn btn-sm btn-light mt-2" onclick="document.getElementById('upload-pic').click()">Cambiar foto</button>
+            <span id="admin-name">Georgina</span>
+        </div>
+        <a href="Panel de control.html"><i class="fas fa-tachometer-alt"></i> Panel de Control</a>
+        <a href="Gestion de usuarios.html"><i class="fas fa-user"></i> Gestión de Ciclistas</a>
+        <a href="Soporte y feedback.html"><i class="fas fa-comments"></i> Soporte y Feedback</a>
+    </div>
+    <div class="container">
+        <div class="card" id="panel-de-control">
+            <div class="card-header">
+                Estadísticas Clave
+            </div>
+            <div class="card-body">
+                <h4 class="section-title">Resumen de Estadísticas</h4>
+                <p>Número de tickets de soporte pendientes: <span id="pending-tickets">0</span></p>
+                <p>Solicitudes de feedback recibidas: <span id="feedback-requests">0</span></p>
+            </div>
+        </div>
+
+        <div class="card" id="gestion-de-ciclistas">
+            <div class="card-header">
+                Gestión de Usuarios
+            </div>
+            <div class="card-body">
+                <h4 class="section-title">Usuarios</h4>
+                <form id="user-form" onsubmit="manageUsers(event)">
+                    <div class="mb-3">
+                        <label for="user-name" class="form-label">Nombre de Usuario</label>
+                        <input type="text" class="form-control" id="user-name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="user-email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="user-email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="user-role" class="form-label">Rol</label>
+                        <select class="form-select" id="user-role" required>
+                            <option value="">Selecciona un rol</option>
+                            <option value="admin">Admin</option>
+                            <option value="soporte">Soporte</option>
+                            <option value="usuario">Usuario</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar Usuario</button>
+                </form>
+                <h4 class="section-title">Lista de Usuarios</h4>
+                <div id="user-list">
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="soporte-y-feedback">
+            <div class="card-header">
+                Reportes y Análisis
+            </div>
+            <div class="card-body">
+                <h4 class="section-title">Generación de Reportes</h4>
+                <button class="btn btn-secondary mb-3" onclick="generateReport()">Generar Reporte</button>
+                <div id="report-output">
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="automatizacion">
+            <div class="card-header">
+                Automatización y Flujos de Trabajo
+            </div>
+            <div class="card-body">
+                <h4 class="section-title">Configuración de Reglas Automatizadas</h4>
+                <form id="automation-form" onsubmit="configureAutomation(event)">
+                    <div class="mb-3">
+                        <label for="automation-rule" class="form-label">Regla de Automatización</label>
+                        <input type="text" class="form-control" id="automation-rule" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar Regla</button>
+                </form>
+                <h4 class="section-title">Reglas Automatizadas</h4>
+                <div id="automation-list">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Función para mostrar/ocultar el menú de la barra lateral
+        function toggleMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Función para mostrar la sección seleccionada y ocultar las demás
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.container > div');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        // Función para manejar la gestión de usuarios
+        function manageUsers(event) {
+            event.preventDefault();
+            // Obtener datos del formulario
+            const userName = document.getElementById('user-name').value;
+            const userEmail = document.getElementById('user-email').value;
+            const userRole = document.getElementById('user-role').value;
+
+            // Obtener usuarios almacenados en Local Storage
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Crear un nuevo usuario y agregarlo a la lista
+            const newUser = {
+                id: Date.now(),
+                name: userName,
+                email: userEmail,
+                role: userRole
+            };
+            users.push(newUser);
+
+            // Guardar la lista actualizada en Local Storage
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Mostrar mensaje de guardado exitoso
+            const userList = document.getElementById('user-list');
+            const savedMessage = document.createElement('div');
+            savedMessage.className = 'saved-message fade-in-out';
+            savedMessage.textContent = 'Usuario guardado exitosamente';
+            userList.appendChild(savedMessage);
+
+            // Limpiar el formulario
+            document.getElementById('user-form').reset();
+
+            // Eliminar el mensaje después de 2 segundos
+            setTimeout(() => {
+                userList.removeChild(savedMessage);
+            }, 2000);
+
+            // Actualizar la lista de usuarios mostrada en la interfaz
+            displayUsers();
+        }
+
+        // Función para mostrar usuarios en la interfaz
+        function displayUsers() {
+            const userList = document.getElementById('user-list');
+            userList.innerHTML = '';
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            users.forEach(user => {
+                const userItem = document.createElement('div');
+                userItem.className = 'user-item';
+                userItem.innerHTML = `
+                    <strong>Nombre:</strong> ${user.name} <br>
+                    <strong>Email:</strong> ${user.email} <br>
+                    <strong>Rol:</strong> ${user.role} <br>
+                    <button class="btn btn-warning btn-sm" onclick="editUser(${user.id})">Editar</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Eliminar</button>
+                `;
+                userList.appendChild(userItem);
+            });
+        }
+
+        // Función para editar un usuario
+        function editUser(userId) {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(user => user.id === userId);
+
+            document.getElementById('user-name').value = user.name;
+            document.getElementById('user-email').value = user.email;
+            document.getElementById('user-role').value = user.role;
+
+            // Eliminar el usuario actual de la lista para que pueda ser actualizado
+            const updatedUsers = users.filter(user => user.id !== userId);
+            localStorage.setItem('users', JSON.stringify(updatedUsers));
+        }
+
+        // Función para eliminar un usuario
+        function deleteUser(userId) {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const updatedUsers = users.filter(user => user.id !== userId);
+            localStorage.setItem('users', JSON.stringify(updatedUsers));
+            displayUsers();
+        }
+
+        // Función para cargar la lista de usuarios al iniciar la página
+        window.onload = function() {
+            displayUsers();
+            loadProfilePicFromStorage();
+        };
+
+        // Función para generar un reporte
+        function generateReport() {
+            // Lógica para generar reportes (se puede implementar con almacenamiento local)
+            const reportOutput = document.getElementById('report-output');
+            reportOutput.innerHTML = '<p>Reporte generado exitosamente.</p>';
+        }
+
+        // Función para configurar reglas de automatización
+        function configureAutomation(event) {
+            event.preventDefault();
+            // Obtener datos del formulario
+            const automationRule = document.getElementById('automation-rule').value;
+
+            // Obtener reglas almacenadas en Local Storage
+            let rules = JSON.parse(localStorage.getItem('rules')) || [];
+
+            // Crear una nueva regla y agregarla a la lista
+            const newRule = {
+                id: Date.now(),
+                rule: automationRule
+            };
+            rules.push(newRule);
+
+            // Guardar la lista actualizada en Local Storage
+            localStorage.setItem('rules', JSON.stringify(rules));
+
+            // Mostrar mensaje de guardado exitoso
+            const automationList = document.getElementById('automation-list');
+            const savedMessage = document.createElement('div');
+            savedMessage.className = 'saved-message fade-in-out';
+            savedMessage.textContent = 'Regla guardada exitosamente';
+            automationList.appendChild(savedMessage);
+
+            // Limpiar el formulario
+            document.getElementById('automation-form').reset();
+
+            // Eliminar el mensaje después de 2 segundos
+            setTimeout(() => {
+                automationList.removeChild(savedMessage);
+            }, 2000);
+
+            // Actualizar la lista de reglas mostrada en la interfaz
+            displayRules();
+        }
+
+        // Función para mostrar reglas en la interfaz
+        function displayRules() {
+            const automationList = document.getElementById('automation-list');
+            automationList.innerHTML = '';
+            const rules = JSON.parse(localStorage.getItem('rules')) || [];
+
+            rules.forEach(rule => {
+                const ruleItem = document.createElement('div');
+                ruleItem.className = 'rule-item';
+                ruleItem.innerHTML = `
+                    <strong>Regla:</strong> ${rule.rule} <br>
+                    <button class="btn btn-warning btn-sm" onclick="editRule(${rule.id})">Editar</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteRule(${rule.id})">Eliminar</button>
+                `;
+                automationList.appendChild(ruleItem);
+            });
+        }
+
+        // Función para editar una regla
+        function editRule(ruleId) {
+            const rules = JSON.parse(localStorage.getItem('rules')) || [];
+            const rule = rules.find(rule => rule.id === ruleId);
+
+            document.getElementById('automation-rule').value = rule.rule;
+
+            // Eliminar la regla actual de la lista para que pueda ser actualizada
+            const updatedRules = rules.filter(rule => rule.id !== ruleId);
+            localStorage.setItem('rules', JSON.stringify(updatedRules));
+        }
+
+        // Función para eliminar una regla
+        function deleteRule(ruleId) {
+            const rules = JSON.parse(localStorage.getItem('rules')) || [];
+            const updatedRules = rules.filter(rule => rule.id !== ruleId);
+            localStorage.setItem('rules', JSON.stringify(updatedRules));
+            displayRules();
+        }
+
+        // Función para cargar y mostrar la foto de perfil
+        function loadProfilePic(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const profilePic = document.getElementById('profile-pic');
+                profilePic.src = e.target.result;
+
+                // Guardar la foto en Local Storage
+                localStorage.setItem('profilePic', e.target.result);
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        // Función para cargar la foto de perfil desde Local Storage
+        function loadProfilePicFromStorage() {
+            const profilePic = localStorage.getItem('profilePic');
+            if (profilePic) {
+                document.getElementById('profile-pic').src = profilePic;
+            }
+        }
+    </script>
+</body>
+</html>
+

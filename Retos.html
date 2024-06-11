@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BikeBlitz</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        .header, .header-buttons, footer {
+            background-color: #8e44ad;
+            color: #fff;
+        }
+
+        .header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .nav-items button {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-items button:hover {
+            color: #ccc;
+        }
+
+        .header-buttons {
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        .header-buttons button {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 0 10px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .header-buttons button:hover {
+            background-color: #9b59b6;
+        }
+
+        .content {
+            padding: 30px 20px;
+            background-color: #fff;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 20px 15px;
+            border-radius: 8px;
+        }
+
+        .content h2 {
+            color: #8e44ad;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .challenge {
+            background-color: #f1f1f1;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .challenge h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .challenge p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .cta button {
+            background-color: #16a085;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .cta button:hover {
+            background-color: #1abc9c;
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        footer button {
+            background-color: transparent;
+            color: #fff;
+            border: none;
+            padding: 10px 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            flex-grow: 1;
+            font-weight: bold;
+        }
+
+        footer button:hover {
+            background-color: #6c3483;
+        }
+
+        /* Adaptabilidad para pantallas pequeñas */
+        @media (max-width: 600px) {
+            .header h3 {
+                font-size: 20px;
+            }
+
+            .nav-items button {
+                font-size: 20px;
+                margin-left: 10px;
+            }
+
+            .header-buttons button {
+                font-size: 16px;
+                margin: 0 5px;
+            }
+
+            .content h2 {
+                font-size: 24px;
+            }
+
+            .challenge h3 {
+                font-size: 18px;
+            }
+
+            footer button {
+                font-size: 14px;
+                padding: 8px 5px;
+            }
+        }
+    </style>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <header class="header">
+        <h3>Grupos</h3>
+        <div class="nav-items">
+            <button onclick="window.location.href='Mensajes.html'"><i class="bi bi-envelope-fill"></i></button> <!-- Icono de mensaje -->
+            <button onclick="window.location.href='Buscador.html'"><i class="bi bi-search"></i></button> <!-- Icono de buscar -->
+            <button onclick="window.location.href='cerrar sesion.html'"><i class="bi bi-gear-fill"></i></button> <!-- Icono de configuración -->
+        </div>
+    </header>
+    <div class="header-buttons">
+        <button>Retos</button>
+        <button onclick="window.location.href='Clubes.html'">Clubes</button>
+    </div>
+    <section class="content">
+        <h2>Reto de abril: Racha de Actividades</h2>
+        <div class="challenge">
+            <h3>Descripción</h3>
+            <p>Participa en el reto de abril completando tres actividades de al menos 15 minutos cada una, por semana, durante cuatro semanas. ¡Muestra tu consistencia y gana premios virtuales!</p>
+        </div>
+        <div class="challenge">
+            <h3>Detalles del Reto</h3>
+            <p>Fecha de inicio: 1 de abril de 2024</p>
+            <p>Fecha de finalización: 28 de abril de 2024</p>
+            <p>Duración mínima por actividad: 15 minutos</p>
+            <p>Frecuencia: Tres actividades por semana</p>
+        </div>
+        <div class="cta">
+            <button id="joinButton" onclick="changeButtonText()">Unirse al Reto</button>
+        </div>
+    </section>
+    <section class="content">
+        <h2>Retos Recomendados para Ti</h2>
+        <div class="challenge">
+            <h3>Le Col Classics</h3>
+            <p>Únete a Le Col Classics y desafíate con carreras de larga distancia. Perfecto para aquellos que buscan mejorar su resistencia y velocidad.</p>
+        </div>
+        <div class="challenge">
+            <h3>Running Up for Air</h3>
+            <p>Participa en el reto de Running Up for Air, diseñado para corredores y ciclistas que desean probar su límite en alturas y condiciones desafiantes.</p>
+        </div>
+    </section>
+    <footer>
+        <button id="btnInicio" onclick="window.location.href='Inicio.html'">Inicio</button>
+        <button id="btnMapas" onclick="window.location.href='Mapas.html'">Mapas</button>
+        <button id="btnRegistrar" onclick="window.location.href='Registro.html'">Registrar</button>
+        <button id="btnGrupos" onclick="window.location.href='Retos.html'">Grupos</button>
+        <button id="btnTu" onclick="window.location.href='Tu.html'">Tú</button>
+    </footer>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function changeButtonText() {
+            var button = document.getElementById("joinButton");
+            button.textContent = "Te Uniste";
+            button.disabled = true;
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #8e44ad;
+            color: #fff;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .menu-toggle {
+            background-color: #8e44ad;
+            border: none;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .sidebar {
+            background-color: #8e44ad;
+            padding: 20px;
+            height: 100%;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: left 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin: 10px 0;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            margin-left: 0;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .card {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #8e44ad;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+            padding: 10px 15px;
+            font-weight: bold;
+        }
+
+        .card-body {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .alert {
+            background-color: #16a085;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert h4 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .alert p {
+            margin: 5px 0 0;
+        }
+
+        .user-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .user-list li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-list li span {
+            font-weight: bold;
+        }
+
+        .user-list button {
+            margin-left: 5px;
+        }
+
+        @media (max-width: 992px) {
+            .header h3 {
+                font-size: 20px;
+            }
+
+            .sidebar {
+                width: 250px;
+                height: 100%;
+                position: fixed;
+                top: 0;
+                left: -250px;
+                transition: left 0.3s ease;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .container {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .menu-toggle {
+                position: fixed;
+                top: 15px;
+                left: 15px;
+                z-index: 1001;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header h3 {
+                font-size: 18px;
+            }
+
+            .menu-toggle {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .card-header, .card-body, .alert {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .header h3 {
+                font-size: 16px;
+            }
+
+            .menu-toggle {
+                padding: 5px;
+                font-size: 12px;
+            }
+
+            .card-header, .card-body, .alert {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h3>Gestión de Usuarios</h3>
+        <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
+    </div>
+    <div class="sidebar">
+        <a href="Panel de control JUEZ.html">Panel de Control</a>
+        <a href="Gestion de usuarios JUEZ.html">Gestión de Usuarios</a>
+        <a href="Generación de informes J.html">Generación de informes</a>
+    </div>
+    <div class="container">
+        <div id="users" class="content-section">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Lista de Usuarios
+                        </div>
+                        <div class="card-body">
+                            <ul class="user-list">
+                                <li id="user-1">
+                                    <span>Usuario 1</span>
+                                    <div>
+                                        <button class="btn btn-primary btn-sm" onclick="verUsuario(1)">Ver</button>
+                                        <button class="btn btn-warning btn-sm" onclick="editarUsuario(1)">Editar</button>
+                                        <button class="btn btn-danger btn-sm" onclick="eliminarUsuario(1)">Eliminar</button>
+                                        <button class="btn btn-info btn-sm" onclick="suspenderUsuario(1)">Suspender</button>
+                                    </div>
+                                </li>
+                                <li id="user-2">
+                                    <span>Usuario 2</span>
+                                    <div>
+                                        <button class="btn btn-primary btn-sm" onclick="verUsuario(2)">Ver</button>
+                                        <button class="btn btn-warning btn-sm" onclick="editarUsuario(2)">Editar</button>
+                                        <button class="btn btn-danger btn-sm" onclick="eliminarUsuario(2)">Eliminar</button>
+                                        <button class="btn btn-info btn-sm" onclick="suspenderUsuario(2)">Suspender</button>
+                                    </div>
+                                </li>
+                                <!-- Agrega más usuarios según sea necesario -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="user-details" style="display:none;">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            Detalles del Perfil de Usuario
+                        </div>
+                        <div class="card-body">
+                            <p id="user-name"><strong>Nombre:</strong> </p>
+                            <p><strong>Historial de Actividades:</strong></p>
+                            <ul id="user-activities">
+                                <!-- Agrega más actividades -->
+                            </ul>
+                            <p><strong>Logros:</strong></p>
+                            <ul id="user-achievements">
+                                <!-- Agrega más logros -->
+                            </ul>
+                            <p><strong>Membresías a Clubes:</strong></p>
+                            <ul id="user-clubs">
+                                <!-- Agrega más clubes -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            Herramientas de Mensajes y Notificaciones
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Mensaje</label>
+                                    <textarea class="form-control" id="message" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="alert mt-4">
+                <h4>Notificaciones Importantes</h4>
+                <p>Envía notificaciones importantes a los usuarios para mantenerlos informados.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        function toggleMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function verUsuario(userId) {
+            alert('Ver detalles del usuario ' + userId);
+            document.getElementById('user-details').style.display = 'block';
+            document.getElementById('user-name').innerText = 'Nombre: Usuario ' + userId;
+            // Aquí podrías agregar más detalles dinámicos del usuario
+        }
+
+        function editarUsuario(userId) {
+            alert('Editar usuario ' + userId);
+            // Aquí podrías abrir un formulario de edición de usuario
+        }
+
+        function eliminarUsuario(userId) {
+            if (confirm('¿Estás seguro de que deseas eliminar al usuario ' + userId + '?')) {
+                const userElement = document.getElementById('user-' + userId);
+                userElement.remove();
+            }
+        }
+
+        function suspenderUsuario(userId) {
+            alert('Usuario ' + userId + ' ha sido suspendido');
+            // Aquí podrías cambiar el estado del usuario a suspendido en la base de datos
+        }
+
+        // Mostrar la sección de usuarios al cargar la página
+        showSection('users');
+    </script>
+</body>
+</html>

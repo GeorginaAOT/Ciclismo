@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Cuenta</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    
+    h1 {
+      color: #8e44ad; /* Morado */
+      font-size: 32px;
+      margin-bottom: 30px;
+      font-family: 'Raleway', sans-serif; /* Cambiando la fuente */
+    }
+    
+    input[type="text"],
+    input[type="password"],
+    .btn {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 18px;
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+      transition: all 0.3s ease;
+    }
+    
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #8e44ad; /* Morado */
+    }
+    
+    .btn {
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn-turquesa {
+      background-color: #16a085; /* Turquesa */
+    }
+    
+    .btn-turquesa:hover {
+      background-color: #1abc9c; /* Turquesa más claro */
+    }
+    
+    .checkbox-container {
+      text-align: left;
+      margin-top: 20px;
+    }
+    
+    .checkbox-container input[type="checkbox"] {
+      display: inline-block;
+      margin-right: 10px;
+    }
+    
+    p {
+      color: #666;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+    
+    a {
+      color: #8e44ad; /* Morado */
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-weight: bold;
+    }
+    
+    a:hover {
+      color: #9b59b6; /* Morado más claro */
+    }
+    
+    .help-links {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Crear Cuenta</h1>
+    <form action="insert_usuario.php" method="post"> <!-- Cambio del método a POST y acción al archivo PHP -->
+      <input type="text" name="email" placeholder="Correo electrónico" required><br>
+      <input type="password" name="contrasena" placeholder="Contraseña" required><br> <!-- Cambio del nombre del campo de contraseña -->
+      <input type="submit" value="Crear Cuenta" class="btn btn-turquesa">
+    </form>
+    <div class="checkbox-container">
+      <input type="checkbox" id="terms" required>
+      <label for="terms">Acepto los <a href="#">Términos y condiciones</a> de BikeBlitz</label>
+    </div>
+    <div class="help-links">
+      <a href="#">¿Necesitas ayuda?</a>
+    </div>
+  </div>
+
+
+</body>
+</html>
+

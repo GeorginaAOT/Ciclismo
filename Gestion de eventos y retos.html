@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Eventos y Retos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #8e44ad;
+            color: #fff;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .menu-toggle {
+            background-color: #8e44ad;
+            border: none;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .sidebar {
+            background-color: #8e44ad;
+            padding: 20px;
+            height: 100%;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: left 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin: 10px 0;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            margin-left: 0;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .card {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #8e44ad;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+            padding: 10px 15px;
+            font-weight: bold;
+        }
+
+        .card-body {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .alert {
+            background-color: #16a085;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert h4 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .alert p {
+            margin: 5px 0 0;
+        }
+
+        .event-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .event-list li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .event-list li span {
+            font-weight: bold;
+        }
+
+        .event-list button {
+            margin-left: 5px;
+        }
+
+        @media (max-width: 992px) {
+            .header h3 {
+                font-size: 20px;
+            }
+
+            .sidebar {
+                width: 250px;
+                height: 100%;
+                position: fixed;
+                top: 0;
+                left: -250px;
+                transition: left 0.3s ease;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .container {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .menu-toggle {
+                position: fixed;
+                top: 15px;
+                left: 15px;
+                z-index: 1001;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header h3 {
+                font-size: 18px;
+            }
+
+            .menu-toggle {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .card-header, .card-body, .alert {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .header h3 {
+                font-size: 16px;
+            }
+
+            .menu-toggle {
+                padding: 5px;
+                font-size: 12px;
+            }
+
+            .card-header, .card-body, .alert {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h3>Gestión de Eventos y Retos</h3>
+        <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
+    </div>
+   <div class="sidebar">
+        <a href="Panel de control.html">Panel de Control</a>
+        <a href="Gestion de usuarios.html">Gestión de Usuarios</a>
+        <a href="Gestion de actividades.html">Gestión de Actividades</a>
+        <a href="Gestion de eventos y retos.html">Gestión de Eventos y Retos</a>
+        <a href="Gestion de clubes.html">Gestión de Clubes</a>
+        <a href="Reporte y analisis.html">Reportes y Análisis</a>
+    </div>
+    <div class="container">
+        <div id="events" class="content-section">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Eventos y Retos
+                        </div>
+                        <div class="card-body">
+                            <ul class="event-list" id="event-list">
+                                <!-- Los eventos serán agregados aquí dinámicamente -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Crear Nuevo Evento
+                        </div>
+                        <div class="card-body">
+                            <form id="event-form">
+                                <div class="mb-3">
+                                    <label for="eventName" class="form-label">Nombre del Evento</label>
+                                    <input type="text" class="form-control" id="eventName" name="eventName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="eventDate" class="form-label">Fecha del Evento</label>
+                                    <input type="date" class="form-control" id="eventDate" name="eventDate" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="eventTime" class="form-label">Hora del Evento</label>
+                                    <input type="time" class="form-control" id="eventTime" name="eventTime" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="eventLocation" class="form-label">Lugar del Evento</label>
+                                    <input type="text" class="form-control" id="eventLocation" name="eventLocation" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="eventRequirements" class="form-label">Requisitos del Evento</label>
+                                    <textarea class="form-control" id="eventRequirements" name="eventRequirements" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="eventPrizes" class="form-label">Premios del Evento</label>
+                                    <textarea class="form-control" id="eventPrizes" name="eventPrizes" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Guardar Evento</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function guardarEventosEnLocalStorage(eventos) {
+            localStorage.setItem('eventos', JSON.stringify(eventos));
+        }
+
+        function obtenerEventosDeLocalStorage() {
+            const eventos = localStorage.getItem('eventos');
+            return eventos ? JSON.parse(eventos) : [];
+        }
+
+        function mostrarEventos() {
+            const eventList = document.getElementById('event-list');
+            eventList.innerHTML = '';
+            const eventos = obtenerEventosDeLocalStorage();
+            eventos.forEach((evento, index) => {
+                const eventItem = document.createElement('li');
+                eventItem.innerHTML = `
+                    <span>${evento.nombre} - ${evento.fecha} (${evento.hora})</span>
+                    <div>
+                        <button class="btn btn-primary btn-sm" onclick="editarEvento(${index})">Editar</button>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarEvento(${index})">Eliminar</button>
+                    </div>
+                `;
+                eventList.appendChild(eventItem);
+            });
+        }
+
+        function agregarEvento(event) {
+            event.preventDefault();
+            const nombre = document.getElementById('eventName').value;
+            const fecha = document.getElementById('eventDate').value;
+            const hora = document.getElementById('eventTime').value;
+            const lugar = document.getElementById('eventLocation').value;
+            const requisitos = document.getElementById('eventRequirements').value;
+            const premios = document.getElementById('eventPrizes').value;
+
+            const eventos = obtenerEventosDeLocalStorage();
+            eventos.push({ nombre, fecha, hora, lugar, requisitos, premios });
+            guardarEventosEnLocalStorage(eventos);
+            mostrarEventos();
+            document.getElementById('event-form').reset();
+        }
+
+        function editarEvento(index) {
+            const eventos = obtenerEventosDeLocalStorage();
+            const evento = eventos[index];
+            const nombre = prompt('Editar nombre del evento:', evento.nombre);
+            const fecha = prompt('Editar fecha del evento:', evento.fecha);
+            const hora = prompt('Editar hora del evento:', evento.hora);
+            const lugar = prompt('Editar lugar del evento:', evento.lugar);
+            const requisitos = prompt('Editar requisitos del evento:', evento.requisitos);
+            const premios = prompt('Editar premios del evento:', evento.premios);
+
+            if (nombre && fecha && hora && lugar && requisitos && premios) {
+                eventos[index] = { nombre, fecha, hora, lugar, requisitos, premios };
+                guardarEventosEnLocalStorage(eventos);
+                mostrarEventos();
+            }
+        }
+
+        function eliminarEvento(index) {
+            if (confirm('¿Estás seguro de que deseas eliminar este evento?')) {
+                const eventos = obtenerEventosDeLocalStorage();
+                eventos.splice(index, 1);
+                guardarEventosEnLocalStorage(eventos);
+                mostrarEventos();
+            }
+        }
+
+        document.getElementById('event-form').addEventListener('submit', agregarEvento);
+        document.addEventListener('DOMContentLoaded', mostrarEventos);
+    </script>
+</body>
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background-color: #8e44ad; /* Púrpura */
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .menu-toggle {
+            background-color: #8e44ad; /* Púrpura */
+            border: none;
+            color: #fff;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background-color: #7d3c98;
+        }
+
+        .sidebar {
+            background-color: #8e44ad; /* Púrpura */
+            padding: 20px;
+            height: 100%;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: left 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar .logo img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .sidebar .logo span {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            font-size: 18px;
+            padding: 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #7d3c98;
+            padding-left: 25px;
+        }
+
+        .sidebar a i {
+            margin-right: 10px;
+        }
+
+        .container {
+            margin-left: 0;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+            margin-top: 60px;
+        }
+
+        .card {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: none;
+        }
+
+        .card-header {
+            background-color: #16a085; /* Turquesa */
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+            padding: 15px;
+            font-weight: bold;
+        }
+
+        .card-body {
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        .statistics-overview {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .stat-box {
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            padding: 20px;
+            flex: 1;
+            margin: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-box h4 {
+            margin-bottom: 10px;
+            color: #8e44ad; /* Púrpura */
+        }
+
+        .stat-box p {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .section-title {
+            color: #16a085; /* Turquesa */
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .saved-message {
+            display: none;
+            color: green;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .fade-in-out {
+            animation: fadeInOut 2s;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @media (max-width: 992px) {
+            .header h3 {
+                font-size: 20px;
+            }
+
+            .container {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .menu-toggle {
+                position: fixed;
+                top: 15px;
+                left: 15px;
+                z-index: 1001;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header h3 {
+                font-size: 18px;
+            }
+
+            .menu-toggle {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .card-header, .card-body {
+                padding: 10px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            .stat-box {
+                flex: 0 0 45%; /* Dos cajas por fila */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .header h3 {
+                font-size: 16px;
+            }
+
+            .menu-toggle {
+                padding: 5px;
+                font-size: 12px;
+            }
+
+            .card-header, .card-body {
+                padding: 8px;
+            }
+
+            .section-title {
+                font-size: 16px;
+            }
+
+            .stat-box {
+                flex: 0 0 100%; /* Una caja por fila */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado de la página -->
+    <div class="header">
+        <h3>Panel de Control</h3>
+        <!-- Botón para toggle del menú -->
+        <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
+    </div>
+
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <div class="logo">
+            <!-- Foto de perfil y botón para cambiar la foto -->
+            <img id="profile-pic" src="https://via.placeholder.com/100" alt="Foto de Perfil">
+            <input type="file" id="upload-pic" style="display: none;" onchange="loadProfilePic(event)">
+            <button class="btn btn-sm btn-light mt-2" onclick="document.getElementById('upload-pic').click()">Cambiar foto</button>
+            <span id="admin-name">Georgina</span>
+        </div>
+        <!-- Enlaces del menú -->
+        <a href="Panel de control.html"><i class="fas fa-tachometer-alt"></i> Panel de Control</a>
+        <a href="Gestion de usuarios.html"><i class="fas fa-user"></i> Gestión de Ciclistas</a>
+        <a href="soporte y feedback.html"><i class="fas fa-comments"></i> Soporte y Feedback</a>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="container">
+        <!-- Sección del panel de control -->
+        <div id="panel-de-control" class="section">
+            <div class="card">
+                <div class="card-header">
+                    Hola Georgina
+                </div>
+                <div class="card-body">
+                    <h4 class="section-title">Resumen de Estadísticas</h4>
+                    <div class="statistics-overview">
+                        <div class="stat-box">
+                            <h4>Ciclistas Activos</h4>
+                            <p id="active-cyclists">15</p>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Carreras Planificadas</h4>
+                            <p id="planned-races">8</p>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Reportes Generados</h4>
+                            <p id="generated-reports">20</p>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Usuarios en Línea</h4>
+                            <p id="online-users">5</p>
+                        </div>
+                    </div>
+                    <h4 class="section-title">Actividad Reciente</h4>
+                    <ul>
+                        <li>Nuevo ciclista añadido al equipo.</li>
+                        <li>Entrenamiento de resistencia completado por 5 ciclistas.</li>
+                        <li>Planificación de estrategia para la próxima carrera.</li>
+                    </ul>
+                    <h4 class="section-title">Reportes Recientes</h4>
+                    <ul>
+                        <li>Informe de rendimiento de ciclistas - Junio 2024</li>
+                        <li>Análisis de rendimiento individual en carreras recientes</li>
+                        <li>Informe de progreso de entrenamiento - Segundo trimestre 2024</li>
+                    </ul>
+                    <h4 class="section-title">Gráfico de Rendimiento</h4>
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de gestión de ciclistas -->
+        <div id="gestion-de-ciclistas" class="section" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    Gestión de Ciclistas
+                </div>
+                <div class="card-body">
+                    <h4 class="section-title">Listado de Ciclistas</h4>
+                    <!-- Contenido de Gestión de Ciclistas -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de soporte y feedback -->
+        <div id="soporte-y-feedback" class="section" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    Soporte y Feedback
+                </div>
+                <div class="card-body">
+                    <h4 class="section-title">Envíanos tu Feedback</h4>
+                    <!-- Contenido de Soporte y Feedback -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Función para toggle del menú
+        function toggleMenu() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        }
+
+        // Función para mostrar una sección específica
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(function(section) {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+            toggleMenu();
+        }
+
+        // Función para cargar la foto de perfil
+        function loadProfilePic(event) {
+            const profilePic = document.getElementById('profile-pic');
+            const reader = new FileReader();
+            reader.onload = function() {
+                profilePic.src = reader.result;
+                localStorage.setItem('profilePic', reader.result);
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // Función para inicializar el gráfico de rendimiento y cargar la foto de perfil guardada
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedProfilePic = localStorage.getItem('profilePic');
+            if (savedProfilePic) {
+                document.getElementById('profile-pic').src = savedProfilePic;
+            }
+
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+                    datasets: [{
+                        label: 'Rendimiento',
+                        data: [65, 59, 80, 81, 56, 55],
+                        backgroundColor: 'rgba(142, 68, 173, 0.2)',
+                        borderColor: 'rgba(142, 68, 173, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

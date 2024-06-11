@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BikeBlitz - Olvidaste tu Contraseña</title>
+  <!-- Estilos CSS -->
+  <style>
+    /* Estilos CSS aquí */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+
+    h1 {
+      color: #8e44ad; /* Morado */
+      font-size: 32px;
+      margin-bottom: 30px;
+      font-family: 'Raleway', sans-serif; /* Cambiando la fuente */
+    }
+
+    input[type="email"],
+    .btn {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 18px;
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+      transition: all 0.3s ease;
+    }
+
+    input[type="email"]:focus {
+      border-color: #8e44ad; /* Morado */
+    }
+
+    .btn {
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-turquesa {
+      background-color: #16a085; /* Turquesa */
+    }
+
+    .btn-turquesa:hover {
+      background-color: #1abc9c; /* Turquesa más claro */
+    }
+
+    p {
+      color: #666;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    a {
+      color: #8e44ad; /* Morado */
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-weight: bold;
+    }
+
+    a:hover {
+      color: #9b59b6; /* Morado más claro */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 style="font-family: 'Raleway', sans-serif;">BikeBlitz</h1>
+    <form id="forgotPasswordForm" action="#" method="post">
+      <input type="email" name="email" placeholder="Correo electrónico asociado a tu cuenta" required><br>
+      <input type="submit" value="Enviar Correo de Restablecimiento" class="btn btn-turquesa">
+    </form>
+    <p><a href="Inicio de sesion.html" class="btn btn-turquesa">Volver al Inicio de Sesión</a></p>
+  </div>
+
+  <!-- Scripts adicionales aquí -->
+</body>
+</html>
+s
+

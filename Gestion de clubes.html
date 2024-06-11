@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clubes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #8e44ad;
+            color: #fff;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .menu-toggle {
+            background-color: #8e44ad;
+            border: none;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .sidebar {
+            background-color: #8e44ad;
+            padding: 20px;
+            height: 100%;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: left 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin: 10px 0;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            margin-left: 0;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .card {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #8e44ad;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+            padding: 10px 15px;
+            font-weight: bold;
+        }
+
+        .card-body {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .alert {
+            background-color: #16a085;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert h4 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .alert p {
+            margin: 5px 0 0;
+        }
+
+        .club-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .club-list li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .club-list li span {
+            font-weight: bold;
+        }
+
+        .club-list button {
+            margin-left: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 992px) {
+            .header h3 {
+                font-size: 20px;
+            }
+
+            .sidebar {
+                width: 250px;
+                height: 100%;
+                position: fixed;
+                top: 0;
+                left: -250px;
+                transition: left 0.3s ease;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .container {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .menu-toggle {
+                position: fixed;
+                top: 15px;
+                left: 15px;
+                z-index: 1001;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header h3 {
+                font-size: 18px;
+            }
+
+            .menu-toggle {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .card-header, .card-body, .alert {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .header h3 {
+                font-size: 16px;
+            }
+
+            .menu-toggle {
+                padding: 5px;
+                font-size: 12px;
+            }
+
+            .card-header, .card-body, .alert {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h3>Gestión de Clubes</h3>
+        <button class="menu-toggle" onclick="toggleMenu()">☰ Menú</button>
+    </div>
+    <div class="sidebar">
+        <a href="#" onclick="showSection('clubs')">Panel de Control</a>
+        <a href="#" onclick="showSection('users')">Gestión de Usuarios</a>
+        <a href="#" onclick="showSection('activities')">Gestión de Actividades</a>
+        <a href="#" onclick="showSection('events')">Gestión de Eventos y Retos</a>
+        <a href="#" onclick="showSection('clubs')">Gestión de Clubes</a>
+        <a href="#" onclick="showSection('reports')">Reportes y Análisis</a>
+    </div>
+    <div class="container">
+        <div id="clubs" class="content-section">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Clubes de Ciclismo
+                        </div>
+                        <div class="card-body">
+                            <ul class="club-list" id="clubList"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Crear/Editar Club
+                        </div>
+                        <div class="card-body">
+                            <form id="clubForm" method="post" onsubmit="saveClub(event)">
+                                <div class="form-group">
+                                    <label for="clubName" class="form-label">Nombre del Club</label>
+                                    <input type="text" class="form-control" id="clubName" name="clubName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="clubDescription" class="form-label">Descripción</label>
+                                    <textarea class="form-control" id="clubDescription" name="clubDescription" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Guardar Club</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Enviar Anuncios
+                        </div>
+                        <div class="card-body">
+                            <form id="announcementForm" method="post" onsubmit="sendAnnouncement(event)">
+                                <div class="form-group">
+                                    <label for="announcementTitle" class="form-label">Título del Anuncio</label>
+                                    <input type="text" class="form-control" id="announcementTitle" name="announcementTitle">
+                                </div>
+                                <div class="form-group">
+                                    <label for="announcementContent" class="form-label">Contenido</label>
+                                    <textarea class="form-control" id="announcementContent" name="announcementContent" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Enviar Anuncio</button>
+                            </form>
+                            <div class="mt-4">
+                                <h5>Anuncios Enviados</h5>
+                                <ul class="club-list" id="announcementList"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Otros paneles ocultos -->
+    </div>
+    <script>
+        function toggleMenu() {
+            var sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('.content-section');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('clubs');
+            loadClubs();
+            loadAnnouncements();
+        });
+
+        function loadClubs() {
+            const clubs = JSON.parse(localStorage.getItem('clubs')) || [];
+            const clubList = document.getElementById('clubList');
+            clubList.innerHTML = '';
+            clubs.forEach(club => {
+                const li = document.createElement('li');
+                li.id = 'club-' + club.id;
+                li.innerHTML = `
+                    <span>${club.name}</span>
+                    <div>
+                        <button class="btn btn-primary btn-sm" onclick="editClub(${club.id})">Editar</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteClub(${club.id})">Eliminar</button>
+                    </div>
+                `;
+                clubList.appendChild(li);
+            });
+        }
+
+        function saveClub(event) {
+            event.preventDefault();
+            const clubName = document.getElementById('clubName').value;
+            const clubDescription = document.getElementById('clubDescription').value;
+            let clubs = JSON.parse(localStorage.getItem('clubs')) || [];
+            const clubId = clubs.length ? clubs[clubs.length - 1].id + 1 : 1;
+            const club = { id: clubId, name: clubName, description: clubDescription };
+            clubs.push(club);
+            localStorage.setItem('clubs', JSON.stringify(clubs));
+            loadClubs();
+            document.getElementById('clubForm').reset();
+            alert('Club guardado: ' + clubName + '\nDescripción: ' + clubDescription);
+        }
+
+        function editClub(clubId) {
+            let clubs = JSON.parse(localStorage.getItem('clubs')) || [];
+            let club = clubs.find(club => club.id === clubId);
+            document.getElementById('clubName').value = club.name;
+            document.getElementById('clubDescription').value = club.description;
+            deleteClub(clubId);  // Remove the old club entry to allow update
+        }
+
+        function deleteClub(clubId) {
+            if (confirm('¿Estás seguro de que deseas eliminar al club?')) {
+                let clubs = JSON.parse(localStorage.getItem('clubs')) || [];
+                clubs = clubs.filter(club => club.id !== clubId);
+                localStorage.setItem('clubs', JSON.stringify(clubs));
+                loadClubs();
+            }
+        }
+
+        function sendAnnouncement(event) {
+            event.preventDefault();
+            const title = document.getElementById('announcementTitle').value;
+            const content = document.getElementById('announcementContent').value;
+            let announcements = JSON.parse(localStorage.getItem('announcements')) || [];
+            const announcement = { id: announcements.length ? announcements[announcements.length - 1].id + 1 : 1, title, content };
+            announcements.push(announcement);
+            localStorage.setItem('announcements', JSON.stringify(announcements));
+            loadAnnouncements();
+            document.getElementById('announcementForm').reset();
+            alert('Anuncio enviado\nTítulo: ' + title + '\nContenido: ' + content);
+        }
+
+        function loadAnnouncements() {
+            const announcements = JSON.parse(localStorage.getItem('announcements')) || [];
+            const announcementList = document.getElementById('announcementList');
+            announcementList.innerHTML = '';
+            announcements.forEach(announcement => {
+                const li = document.createElement('li');
+                li.id = 'announcement-' + announcement.id;
+                li.innerHTML = `
+                    <span>${announcement.title}</span>
+                    <p>${announcement.content}</p>
+                `;
+                announcementList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>

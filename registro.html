@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .header {
+            background-color: #8e44ad; /* Morado */
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            font-size: 18px;
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .header a:hover {
+            background-color: #722D8D;
+        }
+        .map {
+            height: 200px;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 3px solid #40E0D0; /* Turquesa */
+        }
+        .map img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: white;
+            border-bottom: 3px solid #40E0D0; /* Turquesa */
+        }
+        .stats div {
+            text-align: center;
+            color: #8e44ad; /* Morado */
+        }
+        .stats div span {
+            display: block;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content label {
+            display: block;
+            margin-bottom: 10px;
+            color: #8e44ad; /* Morado */
+            font-weight: bold;
+        }
+        .content input, .content select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #40E0D0; /* Turquesa */
+            border-radius: 5px;
+        }
+        .content .add-photo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border: 2px dashed #40E0D0; /* Turquesa */
+            color: #8e44ad; /* Morado */
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .content .add-photo:hover {
+            background-color: #d5d5d5;
+        }
+        .save-activity {
+            background-color: #8e44ad; /* Morado */
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .save-activity:hover {
+            background-color: #722D8D;
+        }
+        .activity-list {
+            padding: 20px;
+        }
+        .activity-item {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .activity-item h3 {
+            margin: 0;
+            color: #8e44ad; /* Morado */
+        }
+        .activity-item p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="#" onclick="reanudarActividad()">Reanudar</a>
+        <span>Guardar Actividad</span>
+        <a href="Inicio.html">Salir</a>
+    </div>
+
+    <div class="map">
+        <a href="https://www.google.com/maps" target="_blank">
+            <img src="https://via.placeholder.com/600x200?text=Mapa+de+la+Ruta" alt="Mapa de la Ruta">
+        </a>
+    </div>
+
+    <div class="stats">
+        <div>
+            <span id="distance">0 km</span>
+            <div>Distancia</div>
+        </div>
+        <div>
+            <span id="pace">1:21:09 /km</span>
+            <div>Ritmo</div>
+        </div>
+        <div>
+            <span id="time">0h</span>
+            <div>Tiempo</div>
+        </div>
+    </div>
+
+    <div class="content">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" placeholder="Título de tu actividad">
+
+        <label for="sport">Deporte:</label>
+        <select id="sport">
+            <option value="select">Seleccionar</option>
+            <option value="bike">Ciclismo</option>
+            <option value="run">Correr</option>
+            <option value="walk">Caminata</option>
+            <option value="hike">Senderismo</option>
+        </select>
+
+        <label for="type">Tipo:</label>
+        <select id="type">
+            <option value="select">Seleccionar</option>
+            <option value="race">Carrera</option>
+            <option value="training">Entrenamiento</option>
+            <option value="commute">Desplazamiento</option>
+        </select>
+
+        <label for="shoes">Bicicleta:</label>
+        <input type="text" id="shoes" placeholder="Modelo de tu bicicleta">
+
+        <button class="save-activity" onclick="guardarActividad()">Guardar Actividad</button>
+    </div>
+
+    <div class="activity-list" id="activity-list">
+        <!-- Las actividades guardadas aparecerán aquí -->
+    </div>
+
+    <script>
+        function reanudarActividad() {
+            alert('La actividad ha sido reanudada.');
+        }
+
+        function traducirDeporte(deporte) {
+            switch (deporte) {
+                case 'bike': return 'Ciclismo';
+                case 'run': return 'Correr';
+                case 'walk': return 'Caminata';
+                case 'hike': return 'Senderismo';
+                default: return deporte;
+            }
+        }
+
+        function traducirTipo(tipo) {
+            switch (tipo) {
+                case 'race': return 'Carrera';
+                case 'training': return 'Entrenamiento';
+                case 'commute': return 'Desplazamiento';
+                default: return tipo;
+            }
+        }
+
+        function guardarActividad() {
+            const name = document.getElementById('name').value;
+            const sport = document.getElementById('sport').value;
+            const type = document.getElementById('type').value;
+            const shoes = document.getElementById('shoes').value;
+
+            if (name === '') {
+                alert('Por favor, ingresa un nombre para la actividad.');
+                return;
+            }
+
+            if (sport === 'select') {
+                alert('Por favor, selecciona un deporte.');
+                return;
+            }
+
+            if (type === 'select') {
+                alert('Por favor, selecciona un tipo.');
+                return;
+            }
+
+            const actividad = {
+                nombre: name,
+                deporte: sport,
+                tipo: type,
+                bicicleta: shoes
+            };
+
+            // Obtener las actividades guardadas
+            let actividades = JSON.parse(localStorage.getItem('actividades')) || [];
+            // Agregar la nueva actividad
+            actividades.push(actividad);
+            // Guardar en localStorage
+            localStorage.setItem('actividades', JSON.stringify(actividades));
+
+            // Mostrar las actividades
+            mostrarActividades();
+
+            alert('Actividad guardada exitosamente.');
+        }
+
+        function mostrarActividades() {
+            const actividadList = document.getElementById('activity-list');
+            actividadList.innerHTML = '';
+
+            const actividades = JSON.parse(localStorage.getItem('actividades')) || [];
+            actividades.forEach((actividad, index) => {
+                const actividadItem = document.createElement('div');
+                actividadItem.className = 'activity-item';
+                actividadItem.innerHTML = `
+                    <h3>${actividad.nombre}</h3>
+                    <p><strong>Deporte:</strong> ${traducirDeporte(actividad.deporte)}</p>
+                    <p><strong>Tipo:</strong> ${traducirTipo(actividad.tipo)}</p>
+                    <p><strong>Bicicleta:</strong> ${actividad.bicicleta}</p>
+                `;
+                actividadList.appendChild(actividadItem);
+            });
+        }
+
+        // Mostrar las actividades al cargar la página
+        document.addEventListener('DOMContentLoaded', mostrarActividades);
+    </script>
+
+</body>
+</html>

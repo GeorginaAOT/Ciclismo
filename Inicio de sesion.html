@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIKE BLITZ - Unirse o Iniciar Sesión</title>
+  <!-- Agregar enlace a Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-OrI0uZdtG++HegQseBzWc/jIYU0lPb0VbGv0ZmLYugb8uMzHg1RrX6igM3NCwvU3s52OaVRYD7G3YL2ehQaFAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    
+    h1 {
+      color: #8e44ad; /* Morado */
+      font-size: 32px;
+      margin-bottom: 30px;
+      font-family: 'Raleway', sans-serif; /* Cambiando la fuente */
+    }
+    
+    input[type="text"],
+    input[type="password"],
+    .btn {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 18px;
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+      transition: all 0.3s ease;
+    }
+    
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #8e44ad; /* Morado */
+    }
+    
+    .btn {
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn-turquesa {
+      background-color: #16a085; /* Turquesa */
+    }
+    
+    .btn-turquesa:hover {
+      background-color: #1abc9c; /* Turquesa más claro */
+    }
+
+    .btn-lila {
+      background-color: #8e44ad; /* Lila */
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      display: inline-block;
+      margin-left: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .btn-lila:hover {
+      background-color: #9b59b6; /* Lila más claro */
+    }
+    
+    p {
+      color: #666;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+    
+    a {
+      color: #8e44ad; /* Morado */
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-weight: bold;
+    }
+    
+    a:hover {
+      color: #9b59b6; /* Morado más claro */
+    }
+    
+    .help-links {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    /* Estilos para el logo */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      font-family: Arial, sans-serif;
+      font-size: 32px;
+      font-weight: bold;
+      color: #8e44ad; /* Morado */
+      margin-right: 10px;
+    }
+
+    .highlight {
+      color: #16a085; /* Turquesa */
+    }
+
+    .bicycle-icon {
+      font-size: 24px;
+      color: #8e44ad; /* Morado */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Contenido de la página -->
+    <div class="logo-container">
+      <div class="logo">
+        BIKE<span class="highlight"> BLITZ</span>
+      </div>
+      <i class="fas fa-bicycle bicycle-icon"></i> <!-- Ícono de bicicleta de Font Awesome -->
+    </div>
+    <form id="loginForm">
+      <input type="text" id="email" placeholder="Correo electrónico" required><br>
+      <input type="password" id="password" placeholder="Contraseña" required><br>
+      <input type="submit" value="Iniciar Sesión" class="btn btn-turquesa"> <!-- Botón de inicio de sesión -->
+    </form>
+    <p>¿No tienes cuenta? <a href="Crear Cuenta.html" class="btn-lila">Únete a BikeBlitz</a></p> <!-- Botón pequeño para unirse -->
+    <div class="help-links">
+      <a href="Olvidaste tu contraseña.html">¿Olvidaste tu contraseña?</a> <!-- Enlace para restablecer la contraseña -->
+    </div>
+  </div>
+
+  <!-- Script de JavaScript -->
+  <script>
+    // Información de usuarios para inicio de sesión
+    const users = [
+      {
+        email: "ciclista@example.com",
+        password: "ciclista123",
+        role: "ciclista"
+      },
+      {
+        email: "admin@example.com",
+        password: "admin123",
+        role: "administrador"
+      },
+      {
+        email: "juez@example.com",
+        password: "juez123",
+        role: "juez"
+      }
+    ];
+
+    // Evento de inicio de sesión
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Obtener valores de correo electrónico y contraseña
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // Buscar usuario
+      const user = users.find(user => user.email === email && user.password === password);
+
+      // Redirigir según el rol del usuario
+      if (user) {
+        switch (user.role) {
+          case "ciclista":
+            window.location.href = "Inicio.html";
+            break;
+          case "administrador":
+            window.location.href = "Panel de control.html";
+            break;
+          case "juez":
+            window.location.href = "Panel de control JUEZ.html";
+            break;
+          default:
+            break;
+        }
+      } else {
+        alert("Credenciales incorrectas. Por favor, intenta nuevamente.");
+      }
+    });
+  </script>
+</body>
+</html>

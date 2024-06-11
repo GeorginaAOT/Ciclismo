@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elige funciones del mapa - BikeBlitz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background-color: #8e44ad;
+      color: #fff;
+      font-size: 24px;
+      width: 100%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .header .close-btn {
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .header .close-btn::before {
+      content: '\2190'; /* Unicode para la flecha izquierda */
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 20px;
+    }
+
+    .option-container {
+      width: 100%;
+      max-width: 400px;
+      margin-top: 20px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .option:hover {
+      background-color: #f0f0f0;
+    }
+
+    .option-icon {
+      font-size: 24px;
+      margin-right: 15px;
+    }
+
+    .option-text {
+      flex-grow: 1;
+    }
+
+    .option-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .option-description {
+      margin: 5px 0 0 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .radio-btn {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #8e44ad;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .radio-btn::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background-color: #8e44ad;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.2s ease;
+    }
+
+    .radio-btn.active::before {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    @media (max-width: 600px) {
+      .option {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .option-icon {
+        margin-bottom: 10px;
+      }
+
+      .option-text {
+        width: 100%;
+      }
+
+      .header {
+        font-size: 18px;
+        padding: 15px;
+      }
+
+      .header .close-btn {
+        font-size: 20px;
+        left: 15px;
+      }
+
+      .option-title {
+        font-size: 16px;
+      }
+
+      .option-description {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <button class="close-btn" onclick="cerrarVentana()"></button>
+    Elige funciones del mapa
+  </div>
+
+  <div class="content">
+    <div class="option-container">
+      <div class="option" onclick="selectOption('rutas')">
+        <div class="option-icon">🛤️</div>
+        <div class="option-text">
+          <p class="option-title">Rutas</p>
+          <p class="option-description">Recomendaciones de rutas con el aporte de datos de la comunidad.</p>
+        </div>
+        <div class="radio-btn" id="radio-rutas"></div>
+      </div>
+
+      <div class="option" onclick="selectOption('segmentos')">
+        <div class="option-icon">👑</div>
+        <div class="option-text">
+          <p class="option-title">Segmentos</p>
+          <p class="option-description">Secciones de carreteras y rutas destacadas por la comunidad de BikeBlitz.</p>
+        </div>
+        <div class="radio-btn" id="radio-segmentos"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function selectOption(option) {
+      document.getElementById('radio-rutas').classList.remove('active');
+      document.getElementById('radio-segmentos').classList.remove('active');
+
+      if (option === 'rutas') {
+        document.getElementById('radio-rutas').classList.add('active');
+      } else if (option === 'segmentos') {
+        document.getElementById('radio-segmentos').classList.add('active');
+      }
+    }
+
+    function cerrarVentana() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>
+
+
+
